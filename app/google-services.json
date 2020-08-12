@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "49200629743",
+    "firebase_url": "https://learning-management-syst-dfda6.firebaseio.com",
+    "project_id": "learning-management-syst-dfda6",
+    "storage_bucket": "learning-management-syst-dfda6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:49200629743:android:ec49452df0322ac407181a",
+        "android_client_info": {
+          "package_name": "com.example.learningapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "49200629743-7llvcmitdrhg41vgveomt6mp4efm8e96.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBDalluxEoMGCkyAXgynteVZKlSff7hqEs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "49200629743-7llvcmitdrhg41vgveomt6mp4efm8e96.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
