@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/transparent"
-    tools:context=".MainActivity">
+    tools:context=".UserAuthentication.MainActivity">
 
 
     <RelativeLayout
@@ -201,6 +201,26 @@
                 android:elevation="5dp"
                 android:text="Forgot your password?"
                 android:textSize="14sp" />
+
+            <Button
+                android:id="@+id/signup_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_below="@+id/tvForgot"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/btn_bg"
+                android:clickable="true"
+                android:fontFamily="sans-serif-medium"
+                android:onClick="signup"
+                android:paddingLeft="70dp"
+                android:paddingRight="70dp"
+                android:text="signup Now"
+                android:textAllCaps="false"
+                android:textColor="@android:color/white"
+                android:textSize="16sp" />
+
 
         </RelativeLayout>
         </ScrollView>
