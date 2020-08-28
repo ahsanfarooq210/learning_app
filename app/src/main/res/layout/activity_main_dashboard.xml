@@ -38,4 +38,10 @@
         app:menu="@menu/main_dashboard_nav_menu" />
 
 
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/dashboard_main_frame_layout"/>
+
+
 </androidx.drawerlayout.widget.DrawerLayout>

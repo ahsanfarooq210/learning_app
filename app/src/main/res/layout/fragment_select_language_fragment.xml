@@ -4,13 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".learningMedium.select_language_fragment"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context=".learningMedium.select_language_fragment">
 
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="250dp"
-        android:src="@drawable/dashboard_illustration"/>
+        android:src="@drawable/dashboard_illustration" />
 
     <!-- TODO: Update blank fragment layout -->
     <ScrollView
@@ -18,11 +18,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
-        android:elevation="10dp"
-        android:layout_marginBottom="10dp"
         android:layout_marginTop="30dp"
-
-        android:layout_marginRight="10dp">
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="10dp"
+        android:elevation="10dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -30,12 +29,13 @@
             android:orientation="vertical">
 
             <androidx.cardview.widget.CardView
+                android:id="@+id/cpp_card"
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
                 android:layout_marginTop="10dp"
-
                 app:cardBackgroundColor="@android:color/black"
                 app:cardCornerRadius="20dp">
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
@@ -43,24 +43,26 @@
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
+                        android:layout_alignParentLeft="true"
                         android:layout_marginLeft="20dp"
+                        android:layout_marginTop="10dp"
                         android:layout_marginRight="20dp"
                         android:gravity="center"
-                        android:layout_marginTop="10dp"
-                        android:layout_alignParentLeft="true"
                         android:orientation="vertical">
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textColor="@android:color/white"
                             android:text="C++"
-                            android:textSize="30sp"/>
+                            android:textColor="@android:color/white"
+                            android:textSize="30sp" />
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:text="Click here \nto learn C++"
                             android:textColor="@android:color/white"
-                            android:textSize="20sp"
-                            android:text="Click here \nto learn C++"/>
+                            android:textSize="20sp" />
                     </LinearLayout>
 
                     <ImageView
@@ -68,17 +70,19 @@
                         android:layout_height="match_parent"
                         android:layout_alignParentRight="true"
                         android:layout_marginRight="30dp"
-                        android:src="@drawable/icons8_c_plus_plus_52px"/>
+                        android:src="@drawable/icons8_c_plus_plus_52px" />
                 </RelativeLayout>
 
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
+                android:id="@+id/java_card"
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
                 android:layout_marginTop="10dp"
                 app:cardBackgroundColor="@android:color/black"
                 app:cardCornerRadius="20dp">
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
@@ -86,24 +90,26 @@
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:layout_marginLeft="20dp"
-                        android:gravity="center"
-                        android:layout_marginRight="20dp"
-                        android:layout_marginTop="10dp"
                         android:layout_alignParentLeft="true"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginRight="20dp"
+                        android:gravity="center"
                         android:orientation="vertical">
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textColor="@android:color/white"
                             android:text="Java"
-                            android:textSize="30sp"/>
+                            android:textColor="@android:color/white"
+                            android:textSize="30sp" />
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:text="Click here \nto learn java"
                             android:textColor="@android:color/white"
-                            android:textSize="20sp"
-                            android:text="Click here \nto learn java"/>
+                            android:textSize="20sp" />
                     </LinearLayout>
 
                     <ImageView
@@ -111,18 +117,20 @@
                         android:layout_height="match_parent"
                         android:layout_alignParentRight="true"
                         android:layout_marginRight="30dp"
-                        android:src="@drawable/icons8_java_100px"/>
+                        android:src="@drawable/icons8_java_100px" />
                 </RelativeLayout>
 
             </androidx.cardview.widget.CardView>
 
 
             <androidx.cardview.widget.CardView
+                android:id="@+id/python_card"
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
                 android:layout_marginTop="10dp"
                 app:cardBackgroundColor="@android:color/black"
                 app:cardCornerRadius="20dp">
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
@@ -130,24 +138,26 @@
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:layout_marginLeft="20dp"
-                        android:gravity="center"
-                        android:layout_marginRight="20dp"
-                        android:layout_marginTop="10dp"
                         android:layout_alignParentLeft="true"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginRight="20dp"
+                        android:gravity="center"
                         android:orientation="vertical">
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textColor="@android:color/white"
                             android:text="Python"
-                            android:textSize="30sp"/>
+                            android:textColor="@android:color/white"
+                            android:textSize="30sp" />
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:text="Click here \nto learn Python"
                             android:textColor="@android:color/white"
-                            android:textSize="20sp"
-                            android:text="Click here \nto learn Python"/>
+                            android:textSize="20sp" />
                     </LinearLayout>
 
                     <ImageView
@@ -155,17 +165,19 @@
                         android:layout_height="match_parent"
                         android:layout_alignParentRight="true"
                         android:layout_marginRight="30dp"
-                        android:src="@drawable/icons8_python_100px_1"/>
+                        android:src="@drawable/icons8_python_100px_1" />
                 </RelativeLayout>
 
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
+                android:id="@+id/javascript_card"
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
                 android:layout_marginTop="10dp"
                 app:cardBackgroundColor="@android:color/black"
                 app:cardCornerRadius="20dp">
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
@@ -173,24 +185,26 @@
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:layout_marginLeft="20dp"
-                        android:gravity="center"
-                        android:layout_marginRight="20dp"
-                        android:layout_marginTop="10dp"
                         android:layout_alignParentLeft="true"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginRight="20dp"
+                        android:gravity="center"
                         android:orientation="vertical">
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textColor="@android:color/white"
                             android:text="Java script"
-                            android:textSize="30sp"/>
+                            android:textColor="@android:color/white"
+                            android:textSize="30sp" />
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:text="Click here \nto learn javascript"
                             android:textColor="@android:color/white"
-                            android:textSize="20sp"
-                            android:text="Click here \nto learn javascript"/>
+                            android:textSize="20sp" />
                     </LinearLayout>
 
                     <ImageView
@@ -198,16 +212,19 @@
                         android:layout_height="match_parent"
                         android:layout_alignParentRight="true"
                         android:layout_marginRight="30dp"
-                        android:src="@drawable/icons8_javascript_100px"/>
+                        android:src="@drawable/icons8_javascript_100px" />
                 </RelativeLayout>
 
             </androidx.cardview.widget.CardView>
+
             <androidx.cardview.widget.CardView
+                android:id="@+id/csharp_card"
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
                 android:layout_marginTop="10dp"
                 app:cardBackgroundColor="@android:color/black"
                 app:cardCornerRadius="20dp">
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
@@ -215,24 +232,26 @@
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:layout_marginLeft="20dp"
-                        android:gravity="center"
-                        android:layout_marginRight="20dp"
-                        android:layout_marginTop="10dp"
                         android:layout_alignParentLeft="true"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginRight="20dp"
+                        android:gravity="center"
                         android:orientation="vertical">
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textColor="@android:color/white"
                             android:text="C#"
-                            android:textSize="30sp"/>
+                            android:textColor="@android:color/white"
+                            android:textSize="30sp" />
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:text="Click here \nto learn c#"
                             android:textColor="@android:color/white"
-                            android:textSize="20sp"
-                            android:text="Click here \nto learn c#"/>
+                            android:textSize="20sp" />
                     </LinearLayout>
 
                     <ImageView
@@ -240,7 +259,7 @@
                         android:layout_height="match_parent"
                         android:layout_alignParentRight="true"
                         android:layout_marginRight="30dp"
-                        android:src="@drawable/icons8_c_sharp_logo_100px"/>
+                        android:src="@drawable/icons8_c_sharp_logo_100px" />
                 </RelativeLayout>
 
             </androidx.cardview.widget.CardView>

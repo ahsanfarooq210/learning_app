@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:title="PROFILE">
+        <menu>
+            <item
+                android:id="@+id/dashbard_nav_view_profile"
+                android:icon="@drawable/icons8_profile_96px"
+                android:title="View profile" />
+
+            <item
+                android:id="@+id/dashbard_nav_edit_profile"
+                android:icon="@drawable/icons8_edit_96px"
+                android:title="Edit Profile" />
+            <item
+                android:id="@+id/dashbard_nav_logout"
+                android:icon="@drawable/icons8_logout_rounded_up_96px"
+                android:title="Logout" />
+        </menu>
+    </item>
+
+
+    <item android:title="ACTIVITY">
+        <menu>
+            <item
+                android:id="@+id/dashbard_nav_starred_pages"
+                android:icon="@drawable/icons8_star_96px"
+                android:title="Starred" />
+            <item
+                android:id="@+id/dashbard_nav_history"
+                android:icon="@drawable/icons8_order_history_96px_2"
+                android:title="History" />
+            <item
+                android:id="@+id/dashbard_nav_view_saved_pages"
+                android:icon="@drawable/icons8_save_96px"
+                android:title="Saved" />
+
+
+        </menu>
+    </item>
+
+</menu>

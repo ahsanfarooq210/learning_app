@@ -23,4 +23,14 @@
     </string-array>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="cpp_language">c++</string>
+    <string name="java_language">java</string>
+    <string name="python_language">python</string>
+    <string name="javascript_language">java script</string>
+    <string name="csharp_language">c#</string>
+    <string name="bundle_language_reference">language</string>
+    <string name="youtube_medium">youtube</string>
+    <string name="website_medium">webstite</string>
+    <string name="book_medium">books</string>
+    <string name="bundle_medium_reference">medium</string>
 </resources>
