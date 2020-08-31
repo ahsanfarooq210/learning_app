@@ -54,23 +54,19 @@ public class select_medium_fragment extends Fragment implements View.OnClickList
         {
             case R.id.youtube_card:
                 medium=getString(R.string.youtube_medium);
-                next();
-                break;
+                                break;
 
             case R.id.website_card:
                 medium=getString(R.string.website_medium);
-                next();
+
                 break;
 
             case R.id.books_card:
                 medium=getString(R.string.book_medium);
-                next();
+
                 break;
         }
     }
 
-    private void next()
-    {
-        bundle.putString(getString(R.string.bundle_medium_reference),medium);
-    }
+
 }
