@@ -33,4 +33,11 @@
     <string name="website_medium">webstite</string>
     <string name="book_medium">books</string>
     <string name="bundle_medium_reference">medium</string>
+
+    <string name="tutorial_point_csharp">https://www.tutorialspoint.com/csharp/index.htm</string>
+    <string name="tutorial_point_java">https://www.tutorialspoint.com/java/index.htm</string>
+    <string name="tutorial_point_java_script">https://www.tutorialspoint.com/javascript/index.htm</string>
+    <string name="tutorial_point_python">https://www.tutorialspoint.com/python/index.htm</string>
+    <string name="tutorial_point_cpp">https://www.tutorialspoint.com/cplusplus/index.htm</string>
+
 </resources>
