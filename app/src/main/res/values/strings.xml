@@ -21,7 +21,7 @@
         <item>Female</item>
         <item>Other</item>
     </string-array>
-    <!-- TODO: Remove or change this placeholder text -->
+
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="cpp_language">c++</string>
     <string name="java_language">java</string>
@@ -48,5 +48,10 @@
     <string name="bundle_website_reference_tutorials_point">tutorials point</string>
     <string name="bundle_reference_website_w3_schools">w3 Schools</string>
 
+    <string name="youtube_tutorial_java">https://www.youtube.com/results?search_query=java+tutorials</string>
+    <string name="youtube_tutorial_cpp">https://www.youtube.com/results?search_query=c%2B%2B+tutorials</string>
+    <string name="youtube_tutorial_javascript">https://www.youtube.com/results?search_query=javascript+tutorial</string>
+    <string name="youtube_tutorial_python">https://www.youtube.com/results?search_query=python+tutorials</string>
+    <string name="youtube_tutorial_csharp">https://www.youtube.com/results?search_query=c%23+tutorials</string>
 
 </resources>
