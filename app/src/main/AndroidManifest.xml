@@ -15,17 +15,19 @@
         <activity
             android:name=".webViewes.Website_web_view"
             android:theme="@style/web_view_action_bar">
+
+        </activity>
+        <activity android:name=".Profile.Edit_profile" />
+        <activity android:name=".Dashboard.Main_dashboard" />
+        <activity android:name=".UserAuthentication.Signup_activity" />
+        <activity android:name=".UserAuthentication.Forgot_pass_activity" />
+        <activity android:name=".UserAuthentication.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Profile.Edit_profile" />
-        <activity android:name=".Dashboard.Main_dashboard" />
-        <activity android:name=".UserAuthentication.Signup_activity" />
-        <activity android:name=".UserAuthentication.Forgot_pass_activity" />
-        <activity android:name=".UserAuthentication.MainActivity"></activity>
     </application>
 
 </manifest>

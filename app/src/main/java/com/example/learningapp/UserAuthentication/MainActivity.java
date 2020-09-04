@@ -136,8 +136,7 @@ public class MainActivity extends AppCompatActivity
                         {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d("login_username", "signInWithEmail:success");
-                            FirebaseUser user=mAuth.getCurrentUser();
-                            Toast.makeText(MainActivity.this, user.getEmail(), Toast.LENGTH_SHORT).show();
+                            updateUI();
 
                         } else
                         {
@@ -179,10 +178,9 @@ public class MainActivity extends AppCompatActivity
         {
 
             GoogleSignInAccount acc = completedTask.getResult(ApiException.class);
-             Toast.makeText(MainActivity.this,"Signed In Successfully",Toast.LENGTH_SHORT).show();
             FirebaseGoogleAuth(acc);
 
-            updateUI(null);
+            updateUI();
         } catch (ApiException e)
         {
             Toast.makeText(MainActivity.this,"Sign In Failed",Toast.LENGTH_SHORT).show();
@@ -207,11 +205,11 @@ public class MainActivity extends AppCompatActivity
                         FirebaseUser user = mAuth.getCurrentUser();
                         Toast.makeText(MainActivity.this, user.getEmail(), Toast.LENGTH_SHORT).show();
 
-                         updateUI(user);
+                        updateUI();
                     } else
                     {
                         Toast.makeText(MainActivity.this, "Failed", Toast.LENGTH_SHORT).show();
-                         updateUI(null);
+                       
                     }
                 }
             });
@@ -230,7 +228,7 @@ public class MainActivity extends AppCompatActivity
     {
         startActivity(new Intent(MainActivity.this,Signup_activity.class));
     }
-    private void updateUI (FirebaseUser user)
+    private void updateUI ()
     {
         startActivity(new Intent(MainActivity.this, Main_dashboard.class));
     }

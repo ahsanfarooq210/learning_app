@@ -32,6 +32,8 @@ public class Youtube_web_view extends AppCompatActivity
     private LinearLayout upperLayout;
     private SwipeRefreshLayout refreshLayout;
     private String myUrl;
+    private Bundle bundle;
+    private String link;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -39,12 +41,45 @@ public class Youtube_web_view extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_youtube_web_view);
 
+        bundle=getIntent().getBundleExtra("Bundle");
+        if(bundle!=null)
+        {
+            String language=bundle.getString(getString(R.string.bundle_language_reference));
+            switch (language)
+            {
+                case "c++" :
+                     link=getString(R.string.youtube_tutorial_cpp);
+                    break;
+
+                case "java":
+                    link=getString(R.string.youtube_tutorial_java);
+                    break;
+
+                case "python":
+                    link=getString(R.string.youtube_tutorial_python);
+                    break;
+
+                case "java script":
+                    link=getString(R.string.youtube_tutorial_javascript);
+                    break;
+
+                case "c#":
+                    link=getString(R.string.youtube_tutorial_csharp);
+                    break;
+            }
+
+        }
+        else
+        {
+            link="http://www.google.com/";
+        }
+
         progressBar=findViewById(R.id.youtube_website_progress_bar);
         websiteLogo=findViewById(R.id.youtube_website_logo);
         webView=findViewById(R.id.youtube_web_view);
 
         progressBar.setMax(100);
-        webView.loadUrl("http://www.google.com/");
+        webView.loadUrl(link);
 
         refreshLayout=findViewById(R.id.youtube_web_view_swipe_layout);
         upperLayout=findViewById(R.id.youtube_web_view_upper_layout);

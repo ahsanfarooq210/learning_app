@@ -13,6 +13,8 @@ import android.widget.TextView;
 
 
 import com.example.learningapp.R;
+import com.example.learningapp.learningMedium.select_language_fragment;
+import com.example.learningapp.learningMedium.select_website_fragment;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -51,6 +53,7 @@ public class Main_dashboard extends AppCompatActivity implements NavigationView.
         emailll=user.getEmail();
         userEmail=navHeadderView.findViewById(R.id.nav_headder_user_email);
         userEmail.setText(user.getEmail());
+        getSupportFragmentManager().beginTransaction().replace(R.id.dashboard_main_frame_layout,new select_language_fragment()).commit();
     }
 
 
