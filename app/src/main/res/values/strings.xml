@@ -40,4 +40,13 @@
     <string name="tutorial_point_python">https://www.tutorialspoint.com/python/index.htm</string>
     <string name="tutorial_point_cpp">https://www.tutorialspoint.com/cplusplus/index.htm</string>
 
+    <string name="w3_schools_java">https://www.w3schools.com/java/default.asp</string>
+    <string name="w3_schools_java_script">https://www.w3schools.com/js/</string>
+    <string name="w3_schools_cpp">https://www.w3schools.com/cpp/</string>
+    <string name="w3_schools_csharp">https://www.w3schools.com/cs/</string>
+    <string name="w3_schools_python">https://www.w3schools.com/python/</string>
+    <string name="bundle_website_reference_tutorials_point">tutorials point</string>
+    <string name="bundle_reference_website_w3_schools">w3 Schools</string>
+
+
 </resources>

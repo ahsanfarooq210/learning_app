@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.learningapp">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -11,7 +11,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".webViewes.Website_web_view"
+        <activity android:name=".webViewes.Youtube_web_view"></activity>
+        <activity
+            android:name=".webViewes.Website_web_view"
             android:theme="@style/web_view_action_bar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -23,9 +25,7 @@
         <activity android:name=".Dashboard.Main_dashboard" />
         <activity android:name=".UserAuthentication.Signup_activity" />
         <activity android:name=".UserAuthentication.Forgot_pass_activity" />
-        <activity android:name=".UserAuthentication.MainActivity">
-
-        </activity>
+        <activity android:name=".UserAuthentication.MainActivity"></activity>
     </application>
 
 </manifest>

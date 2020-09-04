@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/web_view_swip_layout"
+    android:id="@+id/youtube_web_view_swipe_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".webViewes.Website_web_view">
+    tools:context=".webViewes.Youtube_web_view">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -12,20 +12,20 @@
         android:orientation="vertical">
 
         <LinearLayout
-            android:id="@+id/web_view_upper_layout"
+            android:id="@+id/youtube_web_view_upper_layout"
             android:layout_width="match_parent"
             android:layout_height="30dp"
             android:orientation="horizontal">
 
             <ProgressBar
-                android:id="@+id/website_progress_bar"
+                android:id="@+id/youtube_website_progress_bar"
                 style="@style/Widget.AppCompat.ProgressBar.Horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="0.1" />
 
             <ImageView
-                android:id="@+id/website_logo"
+                android:id="@+id/youtube_website_logo"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="0.9"
@@ -33,7 +33,7 @@
         </LinearLayout>
 
         <WebView
-            android:id="@+id/website_web_view"
+            android:id="@+id/youtube_web_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
     </LinearLayout>

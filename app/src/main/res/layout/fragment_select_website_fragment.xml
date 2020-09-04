@@ -27,7 +27,7 @@
             android:orientation="vertical">
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/website_card"
+                android:id="@+id/tutorials_point_card"
                 android:layout_width="match_parent"
                 android:layout_height="140dp"
                 android:layout_marginTop="10dp"
@@ -63,8 +63,51 @@
                         android:layout_height="140dp"
                         android:layout_alignParentEnd="true"
                         android:layout_marginEnd="30dp"
-                        android:contentDescription="icon fot the websites"
-                        android:src="@drawable/websites_card_vector" />
+                        android:contentDescription="icon fot the totorials poiint"
+                        android:src="@drawable/tutorials_point" />
+                </RelativeLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/w3_schools_card"
+                android:layout_width="match_parent"
+                android:layout_height="140dp"
+                android:layout_marginTop="10dp"
+                app:cardCornerRadius="25dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/card_background_orange">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentStart="true"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginRight="20dp"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="sans-serif-smallcaps"
+                            android:text="W3 Schools"
+                            android:textColor="@android:color/white"
+                            android:textSize="25sp" />
+
+                    </LinearLayout>
+
+                    <ImageView
+                        android:layout_width="140dp"
+                        android:layout_height="140dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginEnd="30dp"
+                        android:contentDescription="icon fot the totorials poiint"
+                        android:src="@drawable/w3_green_logo" />
                 </RelativeLayout>
 
             </androidx.cardview.widget.CardView>
