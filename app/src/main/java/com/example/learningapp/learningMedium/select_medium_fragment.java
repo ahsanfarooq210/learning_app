@@ -10,6 +10,7 @@ import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
 import com.example.learningapp.R;
+import com.example.learningapp.webViewes.Books_web_view;
 import com.example.learningapp.webViewes.Youtube_web_view;
 
 
@@ -68,8 +69,9 @@ public class select_medium_fragment extends Fragment implements View.OnClickList
                 break;
 
             case R.id.books_card:
-                medium = getString(R.string.book_medium);
-
+                Intent intent1 = new Intent(getContext(), Books_web_view.class);
+                intent1 = intent1.putExtra("Bundle", bundle);
+                getActivity().startActivity(intent1);
                 break;
         }
     }
