@@ -31,8 +31,9 @@ public class Website_web_view extends AppCompatActivity
     private ImageView websiteLogo;
     private WebView webView;
     private LinearLayout upperLayout;
-    private SwipeRefreshLayout refreshLayout;
+
     private String myUrl;
+    private String link;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -40,14 +41,27 @@ public class Website_web_view extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_website_web_view);
 
+        Bundle bundle = getIntent().getBundleExtra("Bundle");
+        if (bundle != null)
+        {
+            String language = bundle.getString(getString(R.string.bundle_language_reference));
+            String website = bundle.getString(getString(R.string.bundle_website_name_reference));
+            link = decideLink(language, website);
+        } else
+        {
+
+            link = "http://www.google.com/";
+
+        }
+
         progressBar = findViewById(R.id.website_progress_bar);
         websiteLogo = findViewById(R.id.website_logo);
         webView = findViewById(R.id.website_web_view);
 
         progressBar.setMax(100);
-        webView.loadUrl("http://www.google.com/");  //TO_DO get the website and the language from the user and put the link accordingly
+        webView.loadUrl(link);  //TO_DO get the website and the language from the user and put the link accordingly
 
-        refreshLayout = findViewById(R.id.web_view_swip_layout);
+
         upperLayout = findViewById(R.id.web_view_upper_layout);
 
         webView.getSettings().setJavaScriptEnabled(true);
@@ -66,7 +80,7 @@ public class Website_web_view extends AppCompatActivity
             {
                 upperLayout.setVisibility(View.GONE);
                 myUrl = url;
-                refreshLayout.setRefreshing(false);
+
                 super.onPageFinished(view, url);
 
             }
@@ -96,14 +110,6 @@ public class Website_web_view extends AppCompatActivity
             }
         });
 
-        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener()
-        {
-            @Override
-            public void onRefresh()
-            {
-                webView.reload();
-            }
-        });
 
         webView.setDownloadListener(new DownloadListener()
         {
@@ -123,6 +129,98 @@ public class Website_web_view extends AppCompatActivity
             }
         });
     }
+
+    private String decideLink(String language, String website)
+    {
+        String link = "";
+
+        switch (language)
+        {
+            case "c++":
+                switch (website)
+                {
+                    case "tutorials point":
+                        link = getString(R.string.tutorial_point_cpp);
+                        break;
+                    case "w3 Schools":
+                        link = getString(R.string.w3_schools_cpp);
+                        break;
+
+                    default:
+                        link = "http://www.google.com/";
+                        break;
+                }
+                break;
+
+            case "java":
+                switch (website)
+                {
+                    case "tutorials point":
+                        link = getString(R.string.tutorial_point_java);
+                        break;
+                    case "w3 Schools":
+                        link = getString(R.string.w3_schools_java);
+                        break;
+                    default:
+                        link = "http://www.google.com/";
+                        break;
+                }
+                break;
+
+            case "python":
+                switch (website)
+                {
+                    case "tutorials point":
+                        link = getString(R.string.tutorial_point_python);
+                        break;
+                    case "w3 Schools":
+                        link = getString(R.string.w3_schools_python);
+                        break;
+                    default:
+                        link = "http://www.google.com/";
+                        break;
+                }
+                break;
+
+            case "java script":
+                switch (website)
+                {
+                    case "tutorials point":
+                        link = getString(R.string.tutorial_point_java_script);
+                        break;
+                    case "w3 Schools":
+                        link = getString(R.string.w3_schools_java_script);
+                        break;
+                    default:
+                        link = "http://www.google.com/";
+                        break;
+                }
+                break;
+
+            case "c#":
+                switch (website)
+                {
+                    case "tutorials point":
+                        link = getString(R.string.tutorial_point_csharp);
+                        break;
+                    case "w3 Schools":
+                        link = getString(R.string.w3_schools_csharp);
+                        break;
+                    default:
+                        link = "http://www.google.com/";
+                        break;
+                }
+                break;
+
+            default:
+                link = "http://www.google.com/";
+                break;
+
+        }
+
+        return link;
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu)

@@ -1,5 +1,6 @@
 package com.example.learningapp.learningMedium;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.cardview.widget.CardView;
@@ -10,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.learningapp.R;
+import com.example.learningapp.webViewes.Website_web_view;
 
 import java.security.PrivateKey;
 
@@ -49,14 +51,22 @@ public class select_website_fragment extends Fragment implements View.OnClickLis
         switch (v.getId())
         {
             case R.id.tutorials_point_card:
-                website=getString(R.string.bundle_website_reference_tutorials_point);
+                website = getString(R.string.bundle_website_reference_tutorials_point);
+                next();
                 break;
 
             case R.id.w3_schools_card:
-                website=getString(R.string.bundle_reference_website_w3_schools);
+                website = getString(R.string.bundle_reference_website_w3_schools);
+                next();
                 break;
         }
     }
 
-
+    public void next()
+    {
+        Intent intent = new Intent(getContext(), Website_web_view.class);
+        bundle.putString(getString(R.string.bundle_website_name_reference), website);
+        intent.putExtra("Bundle", bundle);
+        getActivity().startActivity(intent);
+    }
 }

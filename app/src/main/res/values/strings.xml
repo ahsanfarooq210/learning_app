@@ -53,5 +53,6 @@
     <string name="youtube_tutorial_javascript">https://www.youtube.com/results?search_query=javascript+tutorial</string>
     <string name="youtube_tutorial_python">https://www.youtube.com/results?search_query=python+tutorials</string>
     <string name="youtube_tutorial_csharp">https://www.youtube.com/results?search_query=c%23+tutorials</string>
+    <string name="bundle_website_name_reference">website name</string>
 
 </resources>

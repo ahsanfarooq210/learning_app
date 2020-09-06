@@ -30,7 +30,7 @@ public class Youtube_web_view extends AppCompatActivity
     private ImageView websiteLogo;
     private WebView webView;
     private LinearLayout upperLayout;
-    private SwipeRefreshLayout refreshLayout;
+
     private String myUrl;
     private Bundle bundle;
     private String link;
@@ -81,7 +81,7 @@ public class Youtube_web_view extends AppCompatActivity
         progressBar.setMax(100);
         webView.loadUrl(link);
 
-        refreshLayout=findViewById(R.id.youtube_web_view_swipe_layout);
+
         upperLayout=findViewById(R.id.youtube_web_view_upper_layout);
 
         webView.getSettings().setJavaScriptEnabled(true);
@@ -99,7 +99,6 @@ public class Youtube_web_view extends AppCompatActivity
             {
                 upperLayout.setVisibility(View.GONE);
                 myUrl=url;
-                refreshLayout.setRefreshing(false);
                 super.onPageFinished(view, url);
 
             }
@@ -121,14 +120,6 @@ public class Youtube_web_view extends AppCompatActivity
             }
         });
 
-        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener()
-        {
-            @Override
-            public void onRefresh()
-            {
-                webView.reload();
-            }
-        });
 
         webView.setDownloadListener(new DownloadListener()
         {
