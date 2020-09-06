@@ -12,11 +12,14 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".webViewes.Youtube_web_view"
+            android:name=".webViewes.Books_web_view"
             android:theme="@style/web_view_action_bar"></activity>
         <activity
+            android:name=".webViewes.Youtube_web_view"
+            android:theme="@style/web_view_action_bar" />
+        <activity
             android:name=".webViewes.Website_web_view"
-            android:theme="@style/web_view_action_bar"></activity>
+            android:theme="@style/web_view_action_bar" />
         <activity android:name=".Profile.Edit_profile" />
         <activity android:name=".Dashboard.Main_dashboard" />
         <activity android:name=".UserAuthentication.Signup_activity" />
