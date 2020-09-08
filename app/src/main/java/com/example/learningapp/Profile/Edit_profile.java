@@ -1,8 +1,5 @@
 package com.example.learningapp.Profile;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -12,6 +9,9 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.Spinner;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.learningapp.R;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -36,10 +36,10 @@ public class Edit_profile extends AppCompatActivity
     private ProgressBar progressBar;
 
     private ScrollView relllay1;
-    private RelativeLayout rellay2,parent_layout;
+    private RelativeLayout rellay2, parent_layout;
 
     private Handler handler;
-    private Runnable runnable=new Runnable()
+    private Runnable runnable = new Runnable()
     {
         @Override
         public void run()
@@ -49,7 +49,7 @@ public class Edit_profile extends AppCompatActivity
     };
 
     private Handler splash;
-    private Runnable runnableSplash=new Runnable()
+    private Runnable runnableSplash = new Runnable()
     {
         @Override
         public void run()
@@ -59,7 +59,7 @@ public class Edit_profile extends AppCompatActivity
         }
     };
 
-    private EditText username_et,contact_et;
+    private EditText username_et, contact_et;
     private Spinner gender_spinner;
 
 
@@ -69,29 +69,29 @@ public class Edit_profile extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_profile);
 
-        splash=new Handler();
-        splash.postDelayed(runnableSplash,1500);
+        splash = new Handler();
+        splash.postDelayed(runnableSplash, 1500);
 
 
-        download_user=FirebaseFirestore.getInstance();
-        firestore=FirebaseFirestore.getInstance();
-        download_user=FirebaseFirestore.getInstance();
-        user= FirebaseAuth.getInstance().getCurrentUser();
+        download_user = FirebaseFirestore.getInstance();
+        firestore = FirebaseFirestore.getInstance();
+        download_user = FirebaseFirestore.getInstance();
+        user = FirebaseAuth.getInstance().getCurrentUser();
 
-        progressBar=findViewById(R.id.edit_progress_bar);
+        progressBar = findViewById(R.id.edit_progress_bar);
 
-        handler=new Handler();
+        handler = new Handler();
 
-        handler.postDelayed(runnable,0);
+        handler.postDelayed(runnable, 0);
 
-        relllay1=findViewById(R.id.edit_rellay1);
-        rellay2=findViewById(R.id.edit_rellay2);
+        relllay1 = findViewById(R.id.edit_rellay1);
+        rellay2 = findViewById(R.id.edit_rellay2);
 
-        parent_layout=findViewById(R.id.edit_profile_parent_layout);
+        parent_layout = findViewById(R.id.edit_profile_parent_layout);
 
-        username_et=findViewById(R.id.edit_profile_name);
-        contact_et=findViewById(R.id.edit_prfile_contact_et);
-        gender_spinner.findViewById(R.id.edit_gender_spinner);
+        username_et = findViewById(R.id.edit_profile_name);
+        contact_et = findViewById(R.id.edit_prfile_contact_et);
+        gender_spinner = findViewById(R.id.edit_gender_spinner);
 
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.Genders, R.layout.spinner_text);
         adapter.setDropDownViewResource(R.layout.spinner_text_dropdown);
@@ -104,30 +104,35 @@ public class Edit_profile extends AppCompatActivity
     {
         super.onStart();
 
-        String uuid=user.getUid();
-        DocumentReference documentReference=download_user.collection(getString(R.string.firestore_user_reference)).document(uuid);
-        documentReference.addSnapshotListener(this,new EventListener<DocumentSnapshot>()
+        String uuid = user.getUid();
+        DocumentReference documentReference = download_user.collection(getString(R.string.firestore_user_reference)).document(uuid);
+        documentReference.addSnapshotListener(this, new EventListener<DocumentSnapshot>()
         {
             @Override
             public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error)
             {
-                if(value!=null)
+                if (value != null)
                 {
                     username_et.setText(value.getString(getString(R.string.user_reference_fname)));
                     contact_et.setText(value.getString(getString(R.string.user_reference_contact)));
-                    String gender=value.getString(getString(R.string.user_reference_gender));
+                    String gender = value.getString(getString(R.string.user_reference_gender));
 
-                    switch (gender)
+                    if (gender != null)
                     {
-                        case "Male":
-                            gender_spinner.setSelection(0);
-                            break;
-                        case "Female":
-                            gender_spinner.setSelection(1);
-                            break;
-                        case "Other":
-                            gender_spinner.setSelection(2);
-                            break;
+
+
+                        switch (gender)
+                        {
+                            case "Male":
+                                gender_spinner.setSelection(0);
+                                break;
+                            case "Female":
+                                gender_spinner.setSelection(1);
+                                break;
+                            case "Other":
+                                gender_spinner.setSelection(2);
+                                break;
+                        }
                     }
                 }
             }
@@ -137,42 +142,42 @@ public class Edit_profile extends AppCompatActivity
     public void save(View view)
     {
         progressBar.setVisibility(View.VISIBLE);
-        String usernameStr=username_et.getText().toString().trim();
+        String usernameStr = username_et.getText().toString().trim();
         String contactStr = contact_et.getText().toString().trim();
-        String gender=gender_spinner.getSelectedItem().toString();
+        String gender = gender_spinner.getSelectedItem().toString();
 
-        if(usernameStr.length()==0)
+        if (usernameStr.length() == 0)
         {
             username_et.setError("Please enter your name");
             return;
         }
 
-        if(contactStr.length()==0)
+        if (contactStr.length() == 0)
         {
             contact_et.setError("Please enter your contact");
             return;
         }
 
-        String uuid=user.getUid();
+        String uuid = user.getUid();
 
-        if(uuid.length()==0)
+        if (uuid.length() == 0)
         {
-            uuid="Unknown";
+            uuid = "Unknown";
         }
 
-        DocumentReference documentReference=firestore.collection(getString(R.string.firestore_user_reference)).document(uuid);
+        DocumentReference documentReference = firestore.collection(getString(R.string.firestore_user_reference)).document(uuid);
 
-        Map<String, Object>user=new HashMap<>();
-        user.put(getString(R.string.user_reference_fname),usernameStr);
-        user.put(getString(R.string.user_reference_contact),contactStr);
-        user.put(getString(R.string.user_reference_gender),gender);
+        Map<String, Object> user = new HashMap<>();
+        user.put(getString(R.string.user_reference_fname), usernameStr);
+        user.put(getString(R.string.user_reference_contact), contactStr);
+        user.put(getString(R.string.user_reference_gender), gender);
         documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>()
         {
             @Override
             public void onSuccess(Void aVoid)
             {
-                handler.postDelayed(runnable,300);
-                Snackbar.make(parent_layout,"Saved Successfully!", BaseTransientBottomBar.LENGTH_SHORT).show();
+                handler.postDelayed(runnable, 300);
+                Snackbar.make(parent_layout, "Saved Successfully!", BaseTransientBottomBar.LENGTH_SHORT).show();
             }
         });
     }

@@ -26,37 +26,42 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class Main_dashboard extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener
 {
-    private DrawerLayout drawerLayout;
+
     private TextView userEmail;
     private CircleImageView profileImage;
 
     private FirebaseUser user;
     private String emailll;
     private View navHeadderView;
+    private Toolbar toolbar;
+    private DrawerLayout drawerLayout;
+    private NavigationView navigationView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_dashboard);
 
-        Toolbar toolbar=findViewById(R.id.nav_toolbar);
+        //setting up the tool bar on the top of our activity
+        toolbar = findViewById(R.id.dashboard_toolbar);
         setSupportActionBar(toolbar);
 
-        drawerLayout=findViewById(R.id.main_dashboard_drawer_layout);
-        NavigationView navigationView=findViewById(R.id.dashboard_nav_view);
+        //setting up navigation drawer
 
-
-        ActionBarDrawerToggle toggle=new ActionBarDrawerToggle(this,drawerLayout,toolbar,R.string.navigation_drawer_open,R.string.navigation_drawer_close);
-        drawerLayout.addDrawerListener(toggle);
-        toggle.syncState();
+        drawerLayout = findViewById(R.id.dashboard_drawer_layout);
+        navigationView = findViewById(R.id.dashboard_navigation);
         navHeadderView = navigationView.getHeaderView(0);
+        ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open_nav_drawer, R.string.close_nav_drawer);
+        drawerLayout.addDrawerListener(actionBarDrawerToggle);
+        actionBarDrawerToggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
-
-        user= FirebaseAuth.getInstance().getCurrentUser();
-        emailll=user.getEmail();
-        userEmail=navHeadderView.findViewById(R.id.nav_headder_user_email);
+        //starting the dashboard fragment in the oncreate method
+        user = FirebaseAuth.getInstance().getCurrentUser();
+        emailll = user.getEmail();
+        userEmail = navHeadderView.findViewById(R.id.nav_headder_user_email);
         userEmail.setText(user.getEmail());
-        getSupportFragmentManager().beginTransaction().replace(R.id.dashboard_main_frame_layout,new select_language_fragment()).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.dashboard_main_frame_layout, new select_language_fragment()).commit();
     }
 
 
