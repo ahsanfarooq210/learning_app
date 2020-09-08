@@ -21,7 +21,7 @@
             android:layout_height="80dp"
             android:adjustViewBounds="true"
             android:scaleType="fitCenter"
-            android:src="@drawable/icons8_edit_30px_1" />
+            android:src="@drawable/icons8_edit_64px" />
 
         <ScrollView
             android:layout_width="match_parent"

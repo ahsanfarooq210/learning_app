@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 
 import com.example.learningapp.Profile.Edit_profile;
+import com.example.learningapp.Profile.Show_profile;
 import com.example.learningapp.R;
 import com.example.learningapp.learningMedium.select_language_fragment;
 
@@ -72,6 +73,10 @@ public class Main_dashboard extends AppCompatActivity implements NavigationView.
         {
             case R.id.nav_drawer_profile_edit:
                 startActivity(new Intent(Main_dashboard.this, Edit_profile.class));
+                break;
+
+            case R.id.nav_drawer_profile:
+                startActivity(new Intent(Main_dashboard.this, Show_profile.class));
                 break;
 
         }
