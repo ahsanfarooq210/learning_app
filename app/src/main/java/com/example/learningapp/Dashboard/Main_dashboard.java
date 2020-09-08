@@ -4,17 +4,20 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
 
+import com.example.learningapp.Profile.Edit_profile;
 import com.example.learningapp.R;
 import com.example.learningapp.learningMedium.select_language_fragment;
-import com.example.learningapp.learningMedium.select_website_fragment;
+
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -41,13 +44,13 @@ public class Main_dashboard extends AppCompatActivity implements NavigationView.
 
         drawerLayout=findViewById(R.id.main_dashboard_drawer_layout);
         NavigationView navigationView=findViewById(R.id.dashboard_nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
+
 
         ActionBarDrawerToggle toggle=new ActionBarDrawerToggle(this,drawerLayout,toolbar,R.string.navigation_drawer_open,R.string.navigation_drawer_close);
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
-
-        navHeadderView=navigationView.getHeaderView(0);
+        navHeadderView = navigationView.getHeaderView(0);
+        navigationView.setNavigationItemSelectedListener(this);
 
         user= FirebaseAuth.getInstance().getCurrentUser();
         emailll=user.getEmail();
@@ -62,10 +65,21 @@ public class Main_dashboard extends AppCompatActivity implements NavigationView.
     {
         switch (item.getItemId())
         {
-            
+            case R.id.nav_drawer_profile_edit:
+                startActivity(new Intent(Main_dashboard.this, Edit_profile.class));
+                break;
+
         }
-
-
         return true;
+    }
+
+    @Override
+    public void onBackPressed()
+    {
+        if (drawerLayout.isDrawerOpen(GravityCompat.START))
+        {
+            drawerLayout.closeDrawer(GravityCompat.START);
+        } else
+            super.onBackPressed();
     }
 }

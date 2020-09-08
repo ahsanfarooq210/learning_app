@@ -1,17 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:showIn="navigation_view">
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item android:title="User">
         <menu>
-        <item
-            android:id="@+id/nav_drawer_profile"
-            android:icon="@drawable/icons8_profile_16px"
-            android:title="Profile" />
+            <item
+                android:id="@+id/nav_drawer_profile"
+                android:icon="@drawable/icons8_profile_16px"
+                android:title="Profile" />
 
-        <item
-            android:id="@+id/nav_drawer_profile_edit"
+            <item
+                android:id="@+id/nav_drawer_profile_edit"
             android:icon="@drawable/icons8_edit_16px_1"
             android:title="Edit Profile" />
         <item
