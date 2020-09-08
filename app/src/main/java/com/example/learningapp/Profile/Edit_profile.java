@@ -73,7 +73,6 @@ public class Edit_profile extends AppCompatActivity
         splash.postDelayed(runnableSplash, 1500);
 
 
-        download_user = FirebaseFirestore.getInstance();
         firestore = FirebaseFirestore.getInstance();
         download_user = FirebaseFirestore.getInstance();
         user = FirebaseAuth.getInstance().getCurrentUser();

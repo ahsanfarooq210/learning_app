@@ -5,16 +5,16 @@
         <menu>
             <item
                 android:id="@+id/nav_drawer_profile"
-                android:icon="@drawable/icons8_profile_16px"
+                android:icon="@drawable/icons8_profile_64px"
                 android:title="Profile" />
 
             <item
                 android:id="@+id/nav_drawer_profile_edit"
-            android:icon="@drawable/icons8_edit_16px_1"
-            android:title="Edit Profile" />
+                android:icon="@drawable/icons8_edit_64px"
+                android:title="Edit Profile" />
         <item
             android:id="@+id/nav_drawer_profile_logout"
-            android:icon="@drawable/icons8_logout_rounded_up_16px"
+            android:icon="@drawable/icons8_logout_rounded_left_64px"
             android:title="Logout" />
 
         </menu>
@@ -25,16 +25,16 @@
         <menu>
         <item
             android:id="@+id/starred"
-            android:icon="@drawable/icons8_star_16px"
+            android:icon="@drawable/icons8_star_64px"
             android:title="Starred" />
 
         <item
             android:id="@+id/saved"
-            android:icon="@drawable/icons8_save_16px"
+            android:icon="@drawable/icons8_save_64px"
             android:title="Saved Pages" />
         <item
             android:id="@+id/history"
-            android:icon="@drawable/icons8_order_history_16px"
+            android:icon="@drawable/icons8_save_64px"
             android:title="History" />
         </menu>
 
