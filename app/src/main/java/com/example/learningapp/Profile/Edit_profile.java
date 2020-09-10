@@ -1,7 +1,11 @@
 package com.example.learningapp.Profile;
 
+import android.app.Activity;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.provider.MediaStore;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -9,11 +13,14 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.Spinner;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.learningapp.R;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
@@ -24,9 +31,15 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+import com.squareup.picasso.Picasso;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class Edit_profile extends AppCompatActivity
 {
@@ -48,7 +61,6 @@ public class Edit_profile extends AppCompatActivity
         }
     };
 
-    private Handler splash;
     private Runnable runnableSplash = new Runnable()
     {
         @Override
@@ -61,7 +73,10 @@ public class Edit_profile extends AppCompatActivity
 
     private EditText username_et, contact_et;
     private Spinner gender_spinner;
+    private final int GALLERY_CODE = 100;
+    private CircleImageView profilePhoto;
 
+    private StorageReference storageReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -69,7 +84,7 @@ public class Edit_profile extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_profile);
 
-        splash = new Handler();
+        Handler splash = new Handler();
         splash.postDelayed(runnableSplash, 1500);
 
 
@@ -91,6 +106,10 @@ public class Edit_profile extends AppCompatActivity
         username_et = findViewById(R.id.edit_profile_name);
         contact_et = findViewById(R.id.edit_prfile_contact_et);
         gender_spinner = findViewById(R.id.edit_gender_spinner);
+
+        profilePhoto = findViewById(R.id.edit_profile_photo);
+
+        storageReference = FirebaseStorage.getInstance().getReference();
 
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.Genders, R.layout.spinner_text);
         adapter.setDropDownViewResource(R.layout.spinner_text_dropdown);
@@ -136,6 +155,16 @@ public class Edit_profile extends AppCompatActivity
                 }
             }
         });
+
+        StorageReference downloadReference = storageReference.child("users/" + user.getUid() + "/profile.jpg");
+        downloadReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>()
+        {
+            @Override
+            public void onSuccess(Uri uri)
+            {
+                Picasso.get().load(uri).into(profilePhoto);
+            }
+        });
     }
 
     public void save(View view)
@@ -179,5 +208,64 @@ public class Edit_profile extends AppCompatActivity
                 Snackbar.make(parent_layout, "Saved Successfully!", BaseTransientBottomBar.LENGTH_SHORT).show();
             }
         });
+    }
+
+    public void changeProPic(View view)
+    {
+        Intent openGalleryintent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        startActivityForResult(openGalleryintent, GALLERY_CODE);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data)
+    {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == GALLERY_CODE)
+        {
+            if (resultCode == Activity.RESULT_OK)
+            {
+                assert data != null;
+                if (data.getData() != null)
+                {
+
+
+                    Uri imageUri = data.getData();
+
+                    // profilePhoto.setImageURI(imageUri);
+
+                    uploadImageToFirebase(imageUri);
+                }
+
+            }
+        }
+    }
+
+    private void uploadImageToFirebase(Uri imageUri)
+    {
+        //upload image to firebase storage
+        final StorageReference fileref = storageReference.child("users/" + user.getUid() + "/profile.jpg");
+        fileref.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>()
+        {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot)
+            {
+                fileref.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>()
+                {
+                    @Override
+                    public void onSuccess(Uri uri)
+                    {
+                        Picasso.get().load(uri).into(profilePhoto);
+                    }
+                });
+            }
+        }).addOnFailureListener(new OnFailureListener()
+        {
+            @Override
+            public void onFailure(@NonNull Exception e)
+            {
+                Toast.makeText(Edit_profile.this, "image upload failure", Toast.LENGTH_SHORT).show();
+            }
+        });
+
     }
 }

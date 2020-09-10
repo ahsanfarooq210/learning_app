@@ -72,7 +72,27 @@
                             android:layout_height="100dp"
                             android:layout_gravity="center"
                             android:layout_marginTop="19dp"
-                            android:id="@+id/edit_profile_photo"/>
+                            android:id="@+id/edit_profile_photo" />
+
+                        <Button
+                            android:id="@+id/change_pic_btn"
+                            android:layout_width="wrap_content"
+                            android:layout_height="40dp"
+                            android:layout_below="@+id/login_card_view"
+                            android:layout_centerHorizontal="true"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="20dp"
+                            android:background="@drawable/btn_bg"
+                            android:clickable="true"
+                            android:fontFamily="sans-serif-medium"
+                            android:onClick="changeProPic"
+                            android:paddingLeft="70dp"
+                            android:paddingRight="70dp"
+                            android:text="Change"
+                            android:textAllCaps="false"
+                            android:textColor="@android:color/white"
+                            android:textSize="16sp" />
+
 
                         <LinearLayout
                             android:layout_width="match_parent"

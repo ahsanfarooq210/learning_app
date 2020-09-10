@@ -1,5 +1,6 @@
 package com.example.learningapp.Profile;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -10,6 +11,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.learningapp.R;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
@@ -17,17 +19,23 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.squareup.picasso.Picasso;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class Show_profile extends AppCompatActivity
 {
     private TextView name, email, contact, gender;
+
+    private CircleImageView profilePhoto;
 
     private FirebaseUser user;
     private FirebaseFirestore firestore;
 
     private ScrollView scrollView;
 
-    private Handler handler;
     private Runnable runnable = new Runnable()
     {
         @Override
@@ -36,6 +44,8 @@ public class Show_profile extends AppCompatActivity
             scrollView.setVisibility(View.VISIBLE);
         }
     };
+
+    private StorageReference storageReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -50,12 +60,18 @@ public class Show_profile extends AppCompatActivity
 
         scrollView = findViewById(R.id.show_rellay1);
 
-        handler = new Handler();
+        Handler handler = new Handler();
         handler.postDelayed(runnable, 1500);
 
         firestore = FirebaseFirestore.getInstance();
 
         user = FirebaseAuth.getInstance().getCurrentUser();
+
+        storageReference = FirebaseStorage.getInstance().getReference();
+
+        profilePhoto = findViewById(R.id.show_profile_photo);
+
+        email.setText(user.getEmail());
 
 
     }
@@ -80,6 +96,17 @@ public class Show_profile extends AppCompatActivity
 
 
                 }
+            }
+        });
+
+
+        StorageReference downloadReference = storageReference.child("users/" + user.getUid() + "/profile.jpg");
+        downloadReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>()
+        {
+            @Override
+            public void onSuccess(Uri uri)
+            {
+                Picasso.get().load(uri).into(profilePhoto);
             }
         });
     }
