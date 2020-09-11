@@ -21,7 +21,17 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.learningapp.Entity.SavedPages;
 import com.example.learningapp.R;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.snackbar.BaseTransientBottomBar;
+import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class Youtube_web_view extends AppCompatActivity
 {
@@ -32,6 +42,10 @@ public class Youtube_web_view extends AppCompatActivity
     private String myUrl;
     private Bundle bundle;
     private String link;
+    private FirebaseFirestore firestore;
+    private CollectionReference collectionReference;
+    private FirebaseUser user;
+    private String myTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -70,6 +84,10 @@ public class Youtube_web_view extends AppCompatActivity
         {
             link = "http://www.google.com/";
         }
+
+        firestore = FirebaseFirestore.getInstance();
+        collectionReference = firestore.collection(getString(R.string.firestore_collection_saved_pages));
+        user = FirebaseAuth.getInstance().getCurrentUser();
 
         progressBar = findViewById(R.id.youtube_website_progress_bar);
         websiteLogo = findViewById(R.id.youtube_website_logo);
@@ -114,6 +132,13 @@ public class Youtube_web_view extends AppCompatActivity
             {
                 super.onReceivedIcon(view, icon);
                 websiteLogo.setImageBitmap(icon);
+            }
+
+            @Override
+            public void onReceivedTitle(WebView view, String title)
+            {
+                super.onReceivedTitle(view, title);
+                myTitle = title;
             }
         });
 
@@ -166,8 +191,33 @@ public class Youtube_web_view extends AppCompatActivity
                 shareintent.putExtra(Intent.EXTRA_SUBJECT, "Copied Url");
                 startActivity(Intent.createChooser(shareintent, "Share url with friends"));
                 break;
+
+            case R.id.web_view_save:
+                savePage();
+                break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void savePage()
+    {
+
+        SavedPages savedPages = new SavedPages(myTitle, myUrl);
+        collectionReference.document(user.getUid()).collection("saved").add(savedPages).addOnSuccessListener(new OnSuccessListener<DocumentReference>()
+        {
+            @Override
+            public void onSuccess(DocumentReference documentReference)
+            {
+                Snackbar.make(upperLayout, "Page saved successfully", BaseTransientBottomBar.LENGTH_SHORT).show();
+            }
+        }).addOnFailureListener(new OnFailureListener()
+        {
+            @Override
+            public void onFailure(@NonNull Exception e)
+            {
+                Snackbar.make(upperLayout, "Failed. Try again", BaseTransientBottomBar.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void onForwardPressed()

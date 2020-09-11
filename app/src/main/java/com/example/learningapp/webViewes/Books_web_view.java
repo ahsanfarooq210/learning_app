@@ -22,16 +22,17 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.learningapp.Entity.SavedPages;
 import com.example.learningapp.R;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class Books_web_view extends AppCompatActivity
 {
@@ -45,6 +46,7 @@ public class Books_web_view extends AppCompatActivity
     private FirebaseFirestore firestore;
     private CollectionReference collectionReference;
     private FirebaseUser user;
+    private String myTitle;
 
     @SuppressLint("SetJavaScriptEnabled")
     @Override
@@ -115,6 +117,13 @@ public class Books_web_view extends AppCompatActivity
                 super.onReceivedIcon(view, icon);
                 websiteLogo.setImageBitmap(icon);
             }
+
+            @Override
+            public void onReceivedTitle(WebView view, String title)
+            {
+                super.onReceivedTitle(view, title);
+                myTitle = title;
+            }
         });
 
         webView.setDownloadListener(new DownloadListener()
@@ -177,11 +186,23 @@ public class Books_web_view extends AppCompatActivity
 
     private void savePage()
     {
-        Map<String, Object> hashmap = new HashMap<>();
-        hashmap.put("Url", myUrl);
-        collectionReference.document(user.getUid()).collection("saved").add(hashmap);
 
-        Snackbar.make(upperLayout, "Page saves successfully", BaseTransientBottomBar.LENGTH_SHORT).show();
+        SavedPages savedPages = new SavedPages(myTitle, myUrl);
+        collectionReference.document(user.getUid()).collection("saved").add(savedPages).addOnSuccessListener(new OnSuccessListener<DocumentReference>()
+        {
+            @Override
+            public void onSuccess(DocumentReference documentReference)
+            {
+                Snackbar.make(upperLayout, "Page saved successfully", BaseTransientBottomBar.LENGTH_SHORT).show();
+            }
+        }).addOnFailureListener(new OnFailureListener()
+        {
+            @Override
+            public void onFailure(@NonNull Exception e)
+            {
+                Snackbar.make(upperLayout, "Failed. Try again", BaseTransientBottomBar.LENGTH_SHORT).show();
+            }
+        });
     }
 
 
