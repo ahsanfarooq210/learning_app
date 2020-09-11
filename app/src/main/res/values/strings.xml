@@ -63,6 +63,7 @@
     <string name="pdf_drive_python">https://www.pdfdrive.com/python-books.html</string>
     <string name="pdf_drive_cpp">https://www.pdfdrive.com/search?q=c%2B%2B&amp;pagecount=&amp;pubyear=&amp;searchin=&amp;em=</string>
     <string name="pdf_drive_csharp">https://www.pdfdrive.com/c-sharp-books.html</string>
+    <string name="firestore_collection_saved_pages">saves_pages</string>
 
 
 </resources>

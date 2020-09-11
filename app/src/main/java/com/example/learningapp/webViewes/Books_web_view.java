@@ -1,5 +1,6 @@
 package com.example.learningapp.webViewes;
 
+import android.annotation.SuppressLint;
 import android.app.DownloadManager;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -22,6 +23,15 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.learningapp.R;
+import com.google.android.material.snackbar.BaseTransientBottomBar;
+import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class Books_web_view extends AppCompatActivity
 {
@@ -32,7 +42,11 @@ public class Books_web_view extends AppCompatActivity
     private String myUrl;
     private Bundle bundle;
     private String link;
+    private FirebaseFirestore firestore;
+    private CollectionReference collectionReference;
+    private FirebaseUser user;
 
+    @SuppressLint("SetJavaScriptEnabled")
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -44,11 +58,17 @@ public class Books_web_view extends AppCompatActivity
         if (bundle != null)
         {
             String languange = bundle.getString(getString(R.string.bundle_language_reference));
+            assert languange != null;
             link = decideLink(languange);
         } else
         {
             link = "https://www.google.com/";
         }
+
+        firestore = FirebaseFirestore.getInstance();
+        collectionReference = firestore.collection(getString(R.string.firestore_collection_saved_pages));
+
+        user = FirebaseAuth.getInstance().getCurrentUser();
 
         progressBar = findViewById(R.id.books_progress_bar);
         websiteLogo = findViewById(R.id.books_logo);
@@ -147,9 +167,23 @@ public class Books_web_view extends AppCompatActivity
                 shareintent.putExtra(Intent.EXTRA_SUBJECT, "Copied Url");
                 startActivity(Intent.createChooser(shareintent, "Share url with friends"));
                 break;
+
+            case R.id.web_view_save:
+                savePage();
+                break;
         }
         return super.onOptionsItemSelected(item);
     }
+
+    private void savePage()
+    {
+        Map<String, Object> hashmap = new HashMap<>();
+        hashmap.put("Url", myUrl);
+        collectionReference.document(user.getUid()).collection("saved").add(hashmap);
+
+        Snackbar.make(upperLayout, "Page saves successfully", BaseTransientBottomBar.LENGTH_SHORT).show();
+    }
+
 
     private void onForwardPressed()
     {

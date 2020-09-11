@@ -25,4 +25,10 @@
         android:id="@+id/web_view_share"
         android:icon="@drawable/ic_baseline_share_24"
         android:title="Share" />
+
+    <item
+        android:id="@+id/web_view_save"
+        android:icon="@drawable/icons8_save_64px"
+        android:title="Save"
+        app:showAsAction="never" />
 </menu>
