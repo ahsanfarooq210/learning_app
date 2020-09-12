@@ -1,16 +1,21 @@
 package com.example.learningapp.WebViewSupport;
 
+import android.os.Bundle;
+import android.widget.LinearLayout;
+
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-
-import android.os.Bundle;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.learningapp.Entity.SavedPages;
 import com.example.learningapp.R;
+import com.example.learningapp.RvAdapters.ShowSavedRvAdapter;
+import com.google.android.material.snackbar.BaseTransientBottomBar;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
@@ -26,6 +31,8 @@ public class Show_saved_pages extends AppCompatActivity
     private CollectionReference collectionReference;
     private FirebaseUser user;
     private ArrayList<SavedPages> list;
+    private LinearLayout upperlayout;
+    private RecyclerView recyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -38,7 +45,9 @@ public class Show_saved_pages extends AppCompatActivity
         user = FirebaseAuth.getInstance().getCurrentUser();
         list = new ArrayList<>();
 
-
+        upperlayout = findViewById(R.id.show_saved_upper_layout);
+        recyclerView = findViewById(R.id.show_saved_recycler_view);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 
     @Override
@@ -46,7 +55,7 @@ public class Show_saved_pages extends AppCompatActivity
     {
         super.onStart();
 
-        CollectionReference reference = firestore.collection(getString(R.string.firestore_collection_saved_pages)).document(user.getUid()).collection("saved");
+        final CollectionReference reference = firestore.collection(getString(R.string.firestore_collection_saved_pages)).document(user.getUid()).collection("saved");
         reference.addSnapshotListener(new EventListener<QuerySnapshot>()
         {
             @Override
@@ -55,6 +64,7 @@ public class Show_saved_pages extends AppCompatActivity
                 if (error != null)
                 {
                     //error message
+                    Snackbar.make(upperlayout, "Error in downloading the data", BaseTransientBottomBar.LENGTH_SHORT).show();
 
                     return;
                 }
@@ -63,6 +73,10 @@ public class Show_saved_pages extends AppCompatActivity
                 {
                     list.add(snapshot.toObject(SavedPages.class));
                 }
+
+                ShowSavedRvAdapter savedRvAdapter = new ShowSavedRvAdapter(list, Show_saved_pages.this);
+                recyclerView.setAdapter(savedRvAdapter);
+
             }
         });
     }

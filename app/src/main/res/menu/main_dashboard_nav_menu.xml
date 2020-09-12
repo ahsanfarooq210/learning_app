@@ -24,16 +24,16 @@
     <item android:title="Activity">
         <menu>
         <item
-            android:id="@+id/starred"
+            android:id="@+id/nav_drawer_starred"
             android:icon="@drawable/icons8_star_64px"
             android:title="Starred" />
 
         <item
-            android:id="@+id/saved"
+            android:id="@+id/nav_drawer_saved"
             android:icon="@drawable/icons8_save_64px"
             android:title="Saved Pages" />
         <item
-            android:id="@+id/history"
+            android:id="@+id/nav_drawer_history"
             android:icon="@drawable/icons8_save_64px"
             android:title="History" />
         </menu>

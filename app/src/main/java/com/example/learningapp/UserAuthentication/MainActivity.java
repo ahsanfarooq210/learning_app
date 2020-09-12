@@ -180,7 +180,7 @@ public class MainActivity extends AppCompatActivity
             GoogleSignInAccount acc = completedTask.getResult(ApiException.class);
             FirebaseGoogleAuth(acc);
 
-            updateUI();
+
         } catch (ApiException e)
         {
             Toast.makeText(MainActivity.this,"Sign In Failed",Toast.LENGTH_SHORT).show();
@@ -231,5 +231,6 @@ public class MainActivity extends AppCompatActivity
     private void updateUI ()
     {
         startActivity(new Intent(MainActivity.this, Main_dashboard.class));
+        finish();
     }
 }

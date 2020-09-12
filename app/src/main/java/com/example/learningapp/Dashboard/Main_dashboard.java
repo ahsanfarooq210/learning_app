@@ -17,6 +17,8 @@ import android.widget.TextView;
 import com.example.learningapp.Profile.Edit_profile;
 import com.example.learningapp.Profile.Show_profile;
 import com.example.learningapp.R;
+import com.example.learningapp.UserAuthentication.MainActivity;
+import com.example.learningapp.WebViewSupport.Show_saved_pages;
 import com.example.learningapp.learningMedium.select_language_fragment;
 
 import com.google.android.material.navigation.NavigationView;
@@ -59,9 +61,15 @@ public class Main_dashboard extends AppCompatActivity implements NavigationView.
         navigationView.setNavigationItemSelectedListener(this);
         //starting the dashboard fragment in the oncreate method
         user = FirebaseAuth.getInstance().getCurrentUser();
-        emailll = user.getEmail();
+        if (user != null)
+        {
+            emailll = user.getEmail();
+        }
         userEmail = navHeadderView.findViewById(R.id.nav_headder_user_email);
-        userEmail.setText(user.getEmail());
+        if (user != null)
+        {
+            userEmail.setText(user.getEmail());
+        }
         getSupportFragmentManager().beginTransaction().replace(R.id.dashboard_main_frame_layout, new select_language_fragment()).commit();
     }
 
@@ -77,6 +85,16 @@ public class Main_dashboard extends AppCompatActivity implements NavigationView.
 
             case R.id.nav_drawer_profile:
                 startActivity(new Intent(Main_dashboard.this, Show_profile.class));
+                break;
+
+            case R.id.nav_drawer_saved:
+                startActivity(new Intent(Main_dashboard.this, Show_saved_pages.class));
+                break;
+
+            case R.id.nav_drawer_profile_logout:
+                FirebaseAuth.getInstance().signOut();
+                startActivity(new Intent(Main_dashboard.this, MainActivity.class));
+                finish();
                 break;
 
         }
