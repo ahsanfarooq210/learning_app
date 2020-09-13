@@ -188,7 +188,7 @@ public class Books_web_view extends AppCompatActivity
     {
 
         SavedPages savedPages = new SavedPages(myTitle, myUrl);
-        collectionReference.document(user.getUid()).collection("saved").add(savedPages).addOnSuccessListener(new OnSuccessListener<DocumentReference>()
+        collectionReference.document(user.getUid()).collection(getString(R.string.saved_pages_collection_path)).add(savedPages).addOnSuccessListener(new OnSuccessListener<DocumentReference>()
         {
             @Override
             public void onSuccess(DocumentReference documentReference)

@@ -2,6 +2,7 @@ package com.example.learningapp.Entity;
 
 public class SavedPages
 {
+    private String id;
     private String title;
     private String url;
 
@@ -9,10 +10,27 @@ public class SavedPages
     {
     }
 
+    public SavedPages(String id, String title, String url)
+    {
+        this.id = id;
+        this.title = title;
+        this.url = url;
+    }
+
     public SavedPages(String title, String url)
     {
         this.title = title;
         this.url = url;
+    }
+
+    public String getId()
+    {
+        return id;
+    }
+
+    public void setId(String id)
+    {
+        this.id = id;
     }
 
     public String getTitle()

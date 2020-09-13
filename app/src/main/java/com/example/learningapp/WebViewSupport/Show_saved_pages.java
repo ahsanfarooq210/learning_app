@@ -55,7 +55,7 @@ public class Show_saved_pages extends AppCompatActivity
     {
         super.onStart();
 
-        final CollectionReference reference = firestore.collection(getString(R.string.firestore_collection_saved_pages)).document(user.getUid()).collection("saved");
+        CollectionReference reference = firestore.collection(getString(R.string.firestore_collection_saved_pages)).document(user.getUid()).collection("saved");
         reference.addSnapshotListener(new EventListener<QuerySnapshot>()
         {
             @Override
@@ -71,10 +71,12 @@ public class Show_saved_pages extends AppCompatActivity
 
                 for (QueryDocumentSnapshot snapshot : value)
                 {
-                    list.add(snapshot.toObject(SavedPages.class));
+                    SavedPages savedPages = snapshot.toObject(SavedPages.class);
+                    savedPages.setId(snapshot.getId());
+                    list.add(savedPages);
                 }
 
-                ShowSavedRvAdapter savedRvAdapter = new ShowSavedRvAdapter(list, Show_saved_pages.this);
+                ShowSavedRvAdapter savedRvAdapter = new ShowSavedRvAdapter(list, Show_saved_pages.this, upperlayout);
                 recyclerView.setAdapter(savedRvAdapter);
 
             }
