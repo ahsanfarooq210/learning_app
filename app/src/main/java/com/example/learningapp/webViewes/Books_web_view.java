@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.webkit.DownloadListener;
 import android.webkit.WebChromeClient;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ImageView;
@@ -78,6 +79,8 @@ public class Books_web_view extends AppCompatActivity
 
 
         progressBar.setMax(100);
+
+        //webView.getSettings().setCacheMode( WebSettings.LOAD_CACHE_ELSE_NETWORK ); // to load the offline saved page
         webView.loadUrl(link);//to do add the url in the function
 
         upperLayout = findViewById(R.id.books_web_view_upper_layout);
@@ -141,6 +144,11 @@ public class Books_web_view extends AppCompatActivity
                 Toast.makeText(Books_web_view.this, "Your file is downloading", Toast.LENGTH_SHORT).show();
             }
         });
+
+//        webView.getSettings().setAppCachePath( getApplicationContext().getCacheDir().getAbsolutePath() );
+//        webView.getSettings().setAllowFileAccess( true );
+//        webView.getSettings().setAppCacheEnabled( true );
+//        webView.getSettings().setCacheMode( WebSettings.LOAD_DEFAULT );
 
 
     }

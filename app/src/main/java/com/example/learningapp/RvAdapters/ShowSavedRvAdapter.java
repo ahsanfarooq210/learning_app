@@ -3,6 +3,7 @@ package com.example.learningapp.RvAdapters;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.learningapp.Entity.SavedPages;
 import com.example.learningapp.R;
+import com.example.learningapp.WebViewSupport.Show_saved_pages;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
@@ -107,6 +109,8 @@ public class ShowSavedRvAdapter extends RecyclerView.Adapter<ShowSavedRvAdapter.
                                         public void onSuccess(Void aVoid)
                                         {
                                             Snackbar.make(upperLayout, "Deleted successfully", BaseTransientBottomBar.LENGTH_SHORT).show();
+                                            context.startActivity(new Intent(context, Show_saved_pages.class));
+                                            context.finish();
                                         }
                                     }).addOnFailureListener(new OnFailureListener()
                                     {
