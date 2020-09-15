@@ -1,27 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
 
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context=".webViewes.Show_saved_pages_web_view">
 
     <LinearLayout
 
-        android:id="@+id/web_view_upper_layout"
+        android:id="@+id/show_saved_web_view_upper_layout"
         android:layout_width="match_parent"
         android:layout_height="30dp"
         android:orientation="horizontal">
 
         <ProgressBar
-            android:id="@+id/website_progress_bar"
+            android:id="@+id/show_saved_progress_bar"
             style="@style/Widget.AppCompat.ProgressBar.Horizontal"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="0.1" />
 
         <ImageView
-            android:id="@+id/website_logo"
+            android:id="@+id/show_saved_logo"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="0.9"
@@ -29,7 +30,8 @@
     </LinearLayout>
 
     <WebView
-        android:id="@+id/website_web_view"
+        android:id="@+id/show_saved_web_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
+
 </LinearLayout>

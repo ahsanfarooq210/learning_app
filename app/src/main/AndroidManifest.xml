@@ -11,7 +11,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".WebViewSupport.Show_saved_pages"></activity>
+        <activity
+            android:name=".webViewes.Show_saved_pages_web_view"
+            android:theme="@style/web_view_action_bar" />
+        <activity android:name=".WebViewSupport.Show_saved_pages" />
         <activity android:name=".Profile.Show_profile" />
         <activity
             android:name=".webViewes.Books_web_view"

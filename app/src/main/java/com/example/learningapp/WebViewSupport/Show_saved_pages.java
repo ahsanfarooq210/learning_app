@@ -69,6 +69,7 @@ public class Show_saved_pages extends AppCompatActivity
                     return;
                 }
 
+                list.clear();
                 for (QueryDocumentSnapshot snapshot : value)
                 {
                     SavedPages savedPages = snapshot.toObject(SavedPages.class);
