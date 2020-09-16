@@ -1,12 +1,14 @@
 package com.example.learningapp.RvAdapters
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.learningapp.R
+import com.example.learningapp.webViewes.Show_saved_pages_web_view
 
 class history_rv_adapter : RecyclerView.Adapter<history_rv_adapter.ViewHolder>
 {
@@ -50,6 +52,21 @@ class history_rv_adapter : RecyclerView.Adapter<history_rv_adapter.ViewHolder>
         {
             index = itemView.findViewById(R.id.show_history_layout_index)
             url = itemView.findViewById(R.id.show_history_layout_url)
+
+            itemView.setOnClickListener(View.OnClickListener
+            {
+                val link: String = list!![adapterPosition]
+
+                var intent = Intent(context, Show_saved_pages_web_view::class.java).apply {
+
+                    putExtra("the url", link)
+                }
+
+
+
+                context!!.startActivity(intent)
+
+            })
 
         }
 
