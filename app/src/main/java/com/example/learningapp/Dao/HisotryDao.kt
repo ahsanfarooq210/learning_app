@@ -1,9 +1,6 @@
 package com.example.learningapp.Dao
 
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.Update
+import androidx.room.*
 import com.example.learningapp.Entity.HistoryEntity
 
 @Dao
@@ -18,5 +15,10 @@ interface HisotryDao
     @Update
     fun updateHistory(history: HistoryEntity)
 
+    @Query("select * from history")
+    fun getAllHistory(): List<HistoryEntity>
+
+    @Query("select url from history")
+    fun getAllurl(): List<String>
 
 }

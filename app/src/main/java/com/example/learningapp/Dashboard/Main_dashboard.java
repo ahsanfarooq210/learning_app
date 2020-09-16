@@ -18,6 +18,7 @@ import com.example.learningapp.Profile.Edit_profile;
 import com.example.learningapp.Profile.Show_profile;
 import com.example.learningapp.R;
 import com.example.learningapp.UserAuthentication.MainActivity;
+import com.example.learningapp.WebViewSupport.Show_history_activity;
 import com.example.learningapp.WebViewSupport.Show_saved_pages;
 import com.example.learningapp.learningMedium.select_language_fragment;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -107,6 +108,10 @@ public class Main_dashboard extends AppCompatActivity implements NavigationView.
                 FirebaseAuth.getInstance().signOut();
                 startActivity(new Intent(Main_dashboard.this, MainActivity.class));
                 finish();
+                break;
+
+            case R.id.nav_drawer_history:
+                startActivity(new Intent(this, Show_history_activity.class));
                 break;
 
         }

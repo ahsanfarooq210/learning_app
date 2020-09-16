@@ -107,6 +107,8 @@ public class Website_web_view extends AppCompatActivity
             {
                 upperLayout.setVisibility(View.VISIBLE);
                 super.onPageStarted(view, url, favicon);
+                myUrl = url;
+                runnable.run();
             }
 
             @Override
@@ -115,7 +117,7 @@ public class Website_web_view extends AppCompatActivity
                 upperLayout.setVisibility(View.GONE);
                 myUrl = url;
                 super.onPageFinished(view, url);
-                runnable.run();
+                //runnable.run();
 
             }
         });
