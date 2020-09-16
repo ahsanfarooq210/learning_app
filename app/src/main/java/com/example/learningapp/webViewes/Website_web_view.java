@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -22,7 +23,9 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.learningapp.Entity.HistoryEntity;
 import com.example.learningapp.Entity.SavedPages;
+import com.example.learningapp.HelperClasses.History;
 import com.example.learningapp.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -47,6 +50,17 @@ public class Website_web_view extends AppCompatActivity
     private CollectionReference collectionReference;
     private FirebaseUser user;
     private String myTitle;
+
+    private Runnable runnable = new Runnable()
+    {
+        @Override
+        public void run()
+        {
+            History history = new History();
+            HistoryEntity his = new HistoryEntity(myUrl);
+            history.savehistory(his, Website_web_view.this);
+        }
+    };
 
     @SuppressLint("SetJavaScriptEnabled")
     @Override
@@ -81,6 +95,7 @@ public class Website_web_view extends AppCompatActivity
         webView.loadUrl(link);  //TO_DO get the website and the language from the user and put the link accordingly
 
 
+
         upperLayout = findViewById(R.id.web_view_upper_layout);
 
         webView.getSettings().setJavaScriptEnabled(true);
@@ -99,8 +114,8 @@ public class Website_web_view extends AppCompatActivity
             {
                 upperLayout.setVisibility(View.GONE);
                 myUrl = url;
-
                 super.onPageFinished(view, url);
+                runnable.run();
 
             }
         });
@@ -148,7 +163,6 @@ public class Website_web_view extends AppCompatActivity
             }
         });
     }
-
     private String decideLink(String language, String website)
     {
         String link;
