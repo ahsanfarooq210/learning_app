@@ -162,7 +162,7 @@ public class Edit_profile extends AppCompatActivity
             @Override
             public void onSuccess(Uri uri)
             {
-                Picasso.get().load(uri).into(profilePhoto);
+                //Picasso.get().load(uri).into(profilePhoto);
             }
         });
     }
@@ -231,7 +231,7 @@ public class Edit_profile extends AppCompatActivity
 
                     Uri imageUri = data.getData();
 
-                    // profilePhoto.setImageURI(imageUri);
+                    profilePhoto.setImageURI(imageUri);
 
                     uploadImageToFirebase(imageUri);
                 }
