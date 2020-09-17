@@ -1,6 +1,9 @@
 package com.example.learningapp.Dashboard;
 
+import android.Manifest;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -9,8 +12,11 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
@@ -46,6 +52,7 @@ public class Main_dashboard extends AppCompatActivity implements NavigationView.
     private NavigationView navigationView;
     private StorageReference storageReference;
     private FirebaseFirestore firestore;
+    private int STORAGE_PERMISSION_CODE = 420;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -84,8 +91,59 @@ public class Main_dashboard extends AppCompatActivity implements NavigationView.
             userEmail.setText(user.getEmail());
         }
         getSupportFragmentManager().beginTransaction().replace(R.id.dashboard_main_frame_layout, new select_language_fragment()).commit();
+
+        checkPermissionGranted();
+
     }
 
+    public void checkPermissionGranted()
+    {
+        if (!(ContextCompat.checkSelfPermission(Main_dashboard.this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED))
+        {
+            requestPermission();
+        }
+    }
+
+    public void requestPermission()
+    {
+        if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.WRITE_EXTERNAL_STORAGE))
+        {
+            new AlertDialog.Builder(this).setTitle("Permission required").setMessage("Permisson is necessary for the app operations")
+                    .setPositiveButton("ok", new DialogInterface.OnClickListener()
+                    {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which)
+                        {
+                            ActivityCompat.requestPermissions(Main_dashboard.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, STORAGE_PERMISSION_CODE);
+
+                        }
+                    }).setNegativeButton("No", new DialogInterface.OnClickListener()
+            {
+                @Override
+                public void onClick(DialogInterface dialog, int which)
+                {
+                    dialog.dismiss();
+                    finish();
+                    System.exit(0);
+                }
+            }).create().show();
+        } else
+        {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, STORAGE_PERMISSION_CODE);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults)
+    {
+        if (requestCode == STORAGE_PERMISSION_CODE)
+        {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_DENIED)
+            {
+                checkPermissionGranted();
+            }
+        }
+    }
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item)
