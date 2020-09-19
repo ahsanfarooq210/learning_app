@@ -23,5 +23,10 @@ class History
         return Database.getDatabase(context).gethistoryDao().getAllurl()
     }
 
+    fun historyClear(context: Context)
+    {
+        return Database.getDatabase(context).gethistoryDao().deleteAllHistory()
+    }
+
 
 }

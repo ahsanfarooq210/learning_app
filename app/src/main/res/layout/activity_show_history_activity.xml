@@ -7,9 +7,18 @@
     android:orientation="vertical"
     tools:context=".WebViewSupport.Show_history_activity">
 
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/colorRed"
+        android:onClick="clearhistory"
+        android:text="Clear History"
+        android:textColor="@color/colorWhite" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/show_history_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
+
 
 </LinearLayout>

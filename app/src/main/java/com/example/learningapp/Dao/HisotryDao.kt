@@ -21,4 +21,7 @@ interface HisotryDao
     @Query("select url from history")
     fun getAllurl(): List<String>
 
+    @Query("delete from history")
+    fun deleteAllHistory()
+
 }

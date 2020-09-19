@@ -1,7 +1,9 @@
 package com.example.learningapp.WebViewSupport
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.LinearLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -37,5 +39,13 @@ class Show_history_activity : AppCompatActivity()
         val adapter = history_rv_adapter(list as ArrayList<String>, this)
         recyclerView!!.adapter = adapter
 
+    }
+
+    fun clearhistory(view: View)
+    {
+        val his = History()
+        his.historyClear(this)
+        startActivity(Intent(this, Show_history_activity::class.java))
+        finish()
     }
 }
