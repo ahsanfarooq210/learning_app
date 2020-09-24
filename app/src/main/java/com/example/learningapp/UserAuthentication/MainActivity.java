@@ -36,7 +36,7 @@ import com.google.firebase.auth.GoogleAuthProvider;
 
 public class MainActivity extends AppCompatActivity
 {
-    private RelativeLayout rally2;
+
     private Handler handler;
     private ScrollView scrollView;
     private Runnable runnable = new Runnable()
@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity
         public void run()
         {
             scrollView.setVisibility(View.VISIBLE);
-            rally2.setVisibility(View.VISIBLE);
+
         }
     };
 
@@ -84,7 +84,6 @@ public class MainActivity extends AppCompatActivity
 
         //initializing the relative layout for the splash screen
         scrollView = findViewById(R.id.rellay1);
-        rally2 = findViewById(R.id.rellay2);
         handler = new Handler();
         //splash screen timeout 1.5 seconds
         handler.postDelayed(runnable, 1500);
@@ -118,6 +117,7 @@ public class MainActivity extends AppCompatActivity
     public void loginButton(View view)
     {
 
+        YoYo.with(Techniques.Bounce).duration(600).repeat(1).playOn(view);
 
         if (username_et.getText().toString().length() == 0)
         {
@@ -132,7 +132,7 @@ public class MainActivity extends AppCompatActivity
             return;
         }
 
-        YoYo.with(Techniques.Bounce).duration(600).repeat(1).playOn(view);
+
         progressBar.setVisibility(View.VISIBLE);
         String username_str, password_str;
         username_str = username_et.getText().toString().trim();
@@ -206,8 +206,16 @@ public class MainActivity extends AppCompatActivity
 
         } catch (ApiException e)
         {
-            Toast.makeText(MainActivity.this,"Sign In Failed",Toast.LENGTH_SHORT).show();
+            Toast.makeText(MainActivity.this, "Sign In Failed", Toast.LENGTH_SHORT).show();
+            try
+            {
+                mGoogleSignInClient.revokeAccess();
+            } catch (Exception ignore)
+            {
+
+            }
             FirebaseGoogleAuth(null);
+            progressBar.setVisibility(View.GONE);
         }
     }
 
@@ -232,8 +240,15 @@ public class MainActivity extends AppCompatActivity
                     } else
                     {
                         Toast.makeText(MainActivity.this, "Failed", Toast.LENGTH_SHORT).show();
+                        try
+                        {
+                            mGoogleSignInClient.revokeAccess();
+                        } catch (Exception ignore)
+                        {
+
+                        }
                         progressBar.setVisibility(View.GONE);
-                       
+
                     }
                 }
             });
@@ -245,6 +260,7 @@ public class MainActivity extends AppCompatActivity
 
     public void forgotPass(View view)
     {
+        YoYo.with(Techniques.Flash).duration(500).repeat(1).playOn(view);
         startActivity(new Intent(MainActivity.this, Forgot_pass_activity.class));
     }
 
