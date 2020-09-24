@@ -6,6 +6,7 @@ import android.os.Handler;
 import android.service.autofill.FillRequest;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
@@ -16,6 +17,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.daimajia.androidanimations.library.Techniques;
+import com.daimajia.androidanimations.library.YoYo;
 import com.example.learningapp.Dashboard.Main_dashboard;
 import com.example.learningapp.R;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -65,15 +68,17 @@ public class MainActivity extends AppCompatActivity
 
     private FirebaseUser user;
 
+    private Button google_sign;
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        user=FirebaseAuth.getInstance().getCurrentUser();
-        if(user!=null)
+        user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null)
         {
-            startActivity(new Intent(this,Main_dashboard.class));
+            startActivity(new Intent(this, Main_dashboard.class));
             finish();
         }
 
@@ -87,10 +92,11 @@ public class MainActivity extends AppCompatActivity
         password_et = findViewById(R.id.login_password);
         progressBar = findViewById(R.id.login_progress_bar);
         mAuth = FirebaseAuth.getInstance();
+        google_sign = findViewById(R.id.sign_in_google);
 
 
-        phandler=new Handler();
-        phandler.postDelayed(prunnable,0);
+        phandler = new Handler();
+        phandler.postDelayed(prunnable, 0);
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
@@ -98,22 +104,36 @@ public class MainActivity extends AppCompatActivity
 
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
+        try
+        {
+            mGoogleSignInClient.revokeAccess();
+        } catch (Exception ignored)
+        {
+
+        }
+
 
     }
 
     public void loginButton(View view)
     {
+
+
         if (username_et.getText().toString().length() == 0)
         {
             username_et.setError("please enter the username");
+            YoYo.with(Techniques.Tada).duration(700).repeat(1).playOn(username_et);
             return;
         }
         if (password_et.getText().toString().length() == 0)
         {
             password_et.setError("please enter a password");
+            YoYo.with(Techniques.Tada).duration(700).repeat(1).playOn(password_et);
             return;
         }
 
+        YoYo.with(Techniques.Bounce).duration(600).repeat(1).playOn(view);
+        progressBar.setVisibility(View.VISIBLE);
         String username_str, password_str;
         username_str = username_et.getText().toString().trim();
         password_str = password_et.getText().toString().trim();
@@ -142,7 +162,8 @@ public class MainActivity extends AppCompatActivity
                         {
                             // If sign in fails, display a message to the user.
                             Log.w("login_username", "signInWithEmail:failure", task.getException());
-                            Toast.makeText(MainActivity.this,"Sign In Failed",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(MainActivity.this, "Sign In Failed", Toast.LENGTH_SHORT).show();
+                            progressBar.setVisibility(View.GONE);
                         }
 
                         // ...
@@ -152,11 +173,13 @@ public class MainActivity extends AppCompatActivity
 
     public void googleLogin(View view)
     {
+        YoYo.with(Techniques.BounceIn).duration(400).repeat(1).playOn(view);
         signIn();
     }
 
     private void signIn()
     {
+        progressBar.setVisibility(View.VISIBLE);
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
@@ -209,6 +232,7 @@ public class MainActivity extends AppCompatActivity
                     } else
                     {
                         Toast.makeText(MainActivity.this, "Failed", Toast.LENGTH_SHORT).show();
+                        progressBar.setVisibility(View.GONE);
                        
                     }
                 }
@@ -231,6 +255,8 @@ public class MainActivity extends AppCompatActivity
     private void updateUI ()
     {
         startActivity(new Intent(MainActivity.this, Main_dashboard.class));
+        progressBar.setVisibility(View.GONE);
         finish();
     }
+
 }

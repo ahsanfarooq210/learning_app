@@ -9,4 +9,8 @@
     <color name="colorBlue">#2FB4FF</color>
     <color name="colorBlueT">#642fb4ff</color>
     <color name="colorRed">#FF0000</color>
+    <color name="colorBackground">#333C46</color>
+    <color name="colorSplashText">#F0F0F0</color>
+    <color name="colorProgressBar">#FFCE511C</color>
+    <color name="colorTextView">#83898E</color>
 </resources>

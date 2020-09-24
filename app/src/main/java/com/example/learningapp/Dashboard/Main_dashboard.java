@@ -27,6 +27,9 @@ import com.example.learningapp.UserAuthentication.MainActivity;
 import com.example.learningapp.WebViewSupport.Show_history_activity;
 import com.example.learningapp.WebViewSupport.Show_saved_pages;
 import com.example.learningapp.learningMedium.select_language_fragment;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -164,6 +167,19 @@ public class Main_dashboard extends AppCompatActivity implements NavigationView.
 
             case R.id.nav_drawer_profile_logout:
                 FirebaseAuth.getInstance().signOut();
+                GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                        .requestIdToken(getString(R.string.default_web_client_id))
+                        .requestEmail()
+                        .build();
+
+                GoogleSignInClient mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+                try
+                {
+                    mGoogleSignInClient.revokeAccess();
+                } catch (Exception ignored)
+                {
+
+                }
                 startActivity(new Intent(Main_dashboard.this, MainActivity.class));
                 finish();
                 break;
