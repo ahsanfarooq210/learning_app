@@ -11,6 +11,8 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 
+import com.daimajia.androidanimations.library.Techniques;
+import com.daimajia.androidanimations.library.YoYo;
 import com.example.learningapp.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -84,20 +86,25 @@ public class Signup_activity extends AppCompatActivity
         if(username_et.getText().toString().trim().length()==0||!(username_et.getText().toString().trim().contains("@")))
         {
             username_et.setError("please enter a valid Email");
+            YoYo.with(Techniques.Tada).duration(700).repeat(1).playOn(username_et);
             return;
         }
 
         if(password_et.getText().toString().trim().length()<6)
         {
             password_et.setError("enter valid password with minimum 6 characters");
+            YoYo.with(Techniques.Tada).duration(700).repeat(1).playOn(password_et);
             return;
         }
         if(!cnfrm_pass_et.getText().toString().trim().equals(password_et.getText().toString().trim()))
         {
             cnfrm_pass_et.setError("passwords donot match");
             password_et.setError("passwords donot match");
+            YoYo.with(Techniques.Tada).duration(700).repeat(1).playOn(password_et);
+            YoYo.with(Techniques.Tada).duration(700).repeat(1).playOn(cnfrm_pass_et);
             return;
         }
+        YoYo.with(Techniques.Tada).duration(700).repeat(1).playOn(view);
         
         String email=username_et.getText().toString().trim();
         String password=password_et.getText().toString().trim();

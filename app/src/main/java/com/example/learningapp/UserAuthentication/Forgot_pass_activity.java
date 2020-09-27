@@ -11,6 +11,8 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 
+import com.daimajia.androidanimations.library.Techniques;
+import com.daimajia.androidanimations.library.YoYo;
 import com.example.learningapp.R;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -87,6 +89,7 @@ public class Forgot_pass_activity extends AppCompatActivity
         if(emailStr.length()==0&&!(emailStr.contains("@"))&&!(emailStr.contains(".com")))
         {
             username_et.setError("Please enter valid email");
+            YoYo.with(Techniques.Tada).duration(700).repeat(1).playOn(username_et);
             return;
         }
 

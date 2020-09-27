@@ -19,6 +19,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.daimajia.androidanimations.library.Techniques;
+import com.daimajia.androidanimations.library.YoYo;
 import com.example.learningapp.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -178,15 +180,18 @@ public class Edit_profile extends AppCompatActivity
         if (usernameStr.length() == 0)
         {
             username_et.setError("Please enter your name");
+            YoYo.with(Techniques.Tada).duration(700).repeat(1).playOn(username_et);
             return;
         }
 
         if (contactStr.length() == 0)
         {
             contact_et.setError("Please enter your contact");
+            YoYo.with(Techniques.Tada).duration(700).repeat(1).playOn(contact_et);
             return;
         }
 
+        YoYo.with(Techniques.Tada).duration(700).repeat(1).playOn(view);
         String uuid = user.getUid();
 
         if (uuid.length() == 0)
