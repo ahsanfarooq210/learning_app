@@ -65,7 +65,7 @@ public class select_medium_fragment extends Fragment implements View.OnClickList
                 select_website_fragment selectWebsiteFragment = new select_website_fragment();
                 bundle.putString(getString(R.string.bundle_medium_reference), medium);
                 selectWebsiteFragment.setArguments(bundle);
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.dashboard_main_frame_layout, selectWebsiteFragment).addToBackStack("").commit();
+                getActivity().getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_right, R.anim.slide_in_left, R.anim.slide_out_left).replace(R.id.dashboard_main_frame_layout, selectWebsiteFragment).addToBackStack("").commit();
                 break;
 
             case R.id.books_card:

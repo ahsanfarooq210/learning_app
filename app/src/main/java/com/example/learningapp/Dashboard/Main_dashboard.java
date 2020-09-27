@@ -19,6 +19,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.example.learningapp.Profile.Edit_profile;
 import com.example.learningapp.Profile.Show_profile;
@@ -93,7 +94,7 @@ public class Main_dashboard extends AppCompatActivity implements NavigationView.
         {
             userEmail.setText(user.getEmail());
         }
-        getSupportFragmentManager().beginTransaction().replace(R.id.dashboard_main_frame_layout, new select_language_fragment()).commit();
+        getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_right, R.anim.slide_in_left, R.anim.slide_out_left).replace(R.id.dashboard_main_frame_layout, new select_language_fragment()).setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN).commit();
 
         checkPermissionGranted();
 
