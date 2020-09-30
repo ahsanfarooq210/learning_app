@@ -21,6 +21,7 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.example.learningapp.HelperClasses.History;
 import com.example.learningapp.Profile.Edit_profile;
 import com.example.learningapp.Profile.Show_profile;
 import com.example.learningapp.R;
@@ -181,6 +182,8 @@ public class Main_dashboard extends AppCompatActivity implements NavigationView.
                 {
 
                 }
+                History h = new History();
+                h.getAllHisotry(Main_dashboard.this);
                 startActivity(new Intent(Main_dashboard.this, MainActivity.class));
                 finish();
                 break;

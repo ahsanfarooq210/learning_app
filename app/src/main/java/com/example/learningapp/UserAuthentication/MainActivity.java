@@ -34,6 +34,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class MainActivity extends AppCompatActivity
 {
 
@@ -68,7 +70,7 @@ public class MainActivity extends AppCompatActivity
 
     private FirebaseUser user;
 
-    private Button google_sign;
+    private CircleImageView google_sign;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
