@@ -3,13 +3,10 @@ package com.example.learningapp.UserAuthentication;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.service.autofill.FillRequest;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.Toast;
 
@@ -59,7 +56,7 @@ public class MainActivity extends AppCompatActivity
     private int RC_SIGN_IN = 1;
 
     private Handler phandler;
-    private Runnable prunnable=new Runnable()
+    private Runnable prunnable = new Runnable()
     {
         @Override
         public void run()
@@ -268,9 +265,10 @@ public class MainActivity extends AppCompatActivity
 
     public void signup(View view)
     {
-        startActivity(new Intent(MainActivity.this,Signup_activity.class));
+        startActivity(new Intent(MainActivity.this, Signup_activity.class));
     }
-    private void updateUI ()
+
+    private void updateUI()
     {
         startActivity(new Intent(MainActivity.this, Main_dashboard.class));
         progressBar.setVisibility(View.GONE);

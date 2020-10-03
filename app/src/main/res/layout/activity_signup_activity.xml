@@ -20,7 +20,7 @@
             android:layout_height="80dp"
             android:adjustViewBounds="true"
             android:scaleType="fitCenter"
-            android:src="@drawable/icons8_forgot_password_128px" />
+            android:src="@drawable/icons8_add_user_male_50px_2" />
 
         <ScrollView
             android:id="@+id/signup_rellay1"
@@ -43,7 +43,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
                     android:fontFamily="sans-serif-medium"
-                    android:text="Forgot Password?"
+                    android:text="Signup"
                     android:textColor="@android:color/black"
                     android:textSize="30sp" />
 

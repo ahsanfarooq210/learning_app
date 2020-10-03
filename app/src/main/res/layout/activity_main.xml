@@ -22,7 +22,7 @@
             android:layout_height="80dp"
             android:adjustViewBounds="true"
             android:scaleType="fitCenter"
-            android:src="@drawable/icons8_login_240px" />
+            android:src="@mipmap/ic_launcher" />
 
         <ScrollView
             android:id="@+id/rellay1"
