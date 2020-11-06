@@ -19,7 +19,7 @@ import java.security.PrivateKey;
 public class select_website_fragment extends Fragment implements View.OnClickListener
 {
 
-    private CardView tutorialsPointCard,w3Schoolscard;
+    private CardView tutorialsPointCard, w3Schoolscard, geeksForGeeksCard;
     private String website;
     private Bundle bundle;
 
@@ -33,14 +33,16 @@ public class select_website_fragment extends Fragment implements View.OnClickLis
                              Bundle savedInstanceState)
     {
         // Inflate the layout for this fragment
-        View v= inflater.inflate(R.layout.fragment_select_website_fragment, container, false);
-        tutorialsPointCard=v.findViewById(R.id.tutorials_point_card);
-        w3Schoolscard=v.findViewById(R.id.w3_schools_card);
+        View v = inflater.inflate(R.layout.fragment_select_website_fragment, container, false);
+        tutorialsPointCard = v.findViewById(R.id.tutorials_point_card);
+        w3Schoolscard = v.findViewById(R.id.w3_schools_card);
+        geeksForGeeksCard = v.findViewById(R.id.geeks_for_geeks__card);
 
         tutorialsPointCard.setOnClickListener(this);
         w3Schoolscard.setOnClickListener(this);
+        geeksForGeeksCard.setOnClickListener(this);
 
-        bundle=getArguments();
+        bundle = getArguments();
 
         return v;
     }
@@ -59,6 +61,13 @@ public class select_website_fragment extends Fragment implements View.OnClickLis
                 website = getString(R.string.bundle_reference_website_w3_schools);
                 next();
                 break;
+
+            case R.id.geeks_for_geeks__card:
+                website = getString(R.string.bundle_reference_website_geeks_for_geeeks);
+                next();
+                break;
+
+
         }
     }
 

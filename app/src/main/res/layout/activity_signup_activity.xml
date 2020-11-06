@@ -20,6 +20,7 @@
             android:layout_height="80dp"
             android:adjustViewBounds="true"
             android:scaleType="fitCenter"
+            android:layout_marginStart="10dp"
             android:src="@drawable/icons8_add_user_male_50px_2" />
 
         <ScrollView
@@ -44,6 +45,8 @@
                     android:layout_marginTop="20dp"
                     android:fontFamily="sans-serif-medium"
                     android:text="Signup"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginBottom="20dp"
                     android:textColor="@android:color/black"
                     android:textSize="30sp" />
 

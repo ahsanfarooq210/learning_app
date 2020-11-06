@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -95,7 +94,6 @@ public class Website_web_view extends AppCompatActivity
         webView.loadUrl(link);  //TO_DO get the website and the language from the user and put the link accordingly
 
 
-
         upperLayout = findViewById(R.id.web_view_upper_layout);
 
         webView.getSettings().setJavaScriptEnabled(true);
@@ -165,6 +163,7 @@ public class Website_web_view extends AppCompatActivity
             }
         });
     }
+
     private String decideLink(String language, String website)
     {
         String link;
@@ -180,10 +179,14 @@ public class Website_web_view extends AppCompatActivity
                     case "w3 Schools":
                         link = getString(R.string.w3_schools_cpp);
                         break;
+                    case "geeks for geeks":
+                        link = getString(R.string.geeks_for_geeks_cpp);
+                        break;
 
                     default:
                         link = "http://www.google.com/";
                         break;
+
                 }
                 break;
 
@@ -196,6 +199,10 @@ public class Website_web_view extends AppCompatActivity
                     case "w3 Schools":
                         link = getString(R.string.w3_schools_java);
                         break;
+                    case "geeks for geeks":
+                        link = getString(R.string.geeks_for_geeks_java);
+                        break;
+
                     default:
                         link = "http://www.google.com/";
                         break;
@@ -210,6 +217,10 @@ public class Website_web_view extends AppCompatActivity
                         break;
                     case "w3 Schools":
                         link = getString(R.string.w3_schools_python);
+                        break;
+
+                    case "geeks for geeks":
+                        link = getString(R.string.geeks_for_geeks_python);
                         break;
                     default:
                         link = "http://www.google.com/";
@@ -226,6 +237,11 @@ public class Website_web_view extends AppCompatActivity
                     case "w3 Schools":
                         link = getString(R.string.w3_schools_java_script);
                         break;
+
+                    case "geeks for geeks":
+                        link = getString(R.string.geeks_for_geeks_javascript);
+                        break;
+
                     default:
                         link = "http://www.google.com/";
                         break;
@@ -240,6 +256,10 @@ public class Website_web_view extends AppCompatActivity
                         break;
                     case "w3 Schools":
                         link = getString(R.string.w3_schools_csharp);
+                        break;
+
+                    case "geeks for geeks":
+                        link = getString(R.string.geeks_for_geeks_csharp);
                         break;
                     default:
                         link = "http://www.google.com/";

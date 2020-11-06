@@ -50,6 +50,7 @@
     <string name="w3_schools_python">https://www.w3schools.com/python/</string>
     <string name="bundle_website_reference_tutorials_point">tutorials point</string>
     <string name="bundle_reference_website_w3_schools">w3 Schools</string>
+    <string name="bundle_reference_website_geeks_for_geeeks">geeks for geeks</string>
 
     <string name="youtube_tutorial_java">https://www.youtube.com/results?search_query=java+tutorials</string>
     <string name="youtube_tutorial_cpp">https://www.youtube.com/results?search_query=c%2B%2B+tutorials</string>
@@ -57,6 +58,12 @@
     <string name="youtube_tutorial_python">https://www.youtube.com/results?search_query=python+tutorials</string>
     <string name="youtube_tutorial_csharp">https://www.youtube.com/results?search_query=c%23+tutorials</string>
     <string name="bundle_website_name_reference">website name</string>
+
+    <string name="geeks_for_geeks_cpp">https://www.geeksforgeeks.org/c-plus-plus/</string>
+    <string name="geeks_for_geeks_java">https://www.geeksforgeeks.org/java/</string>
+    <string name="geeks_for_geeks_javascript">https://www.geeksforgeeks.org/javascript-tutorial/</string>
+    <string name="geeks_for_geeks_python">https://www.geeksforgeeks.org/python-programming-language/</string>
+    <string name="geeks_for_geeks_csharp">https://www.geeksforgeeks.org/csharp-programming-language/</string>
 
     <string name="pdf_drive_java">https://www.pdfdrive.com/java-books.html</string>
     <string name="pdf_drive_javaScript">https://www.pdfdrive.com/javascript-books.html</string>
@@ -77,5 +84,5 @@
     <string name="sign_up">Sign up</string>
     <string name="forget_password">Forget Password.?</string>
 
-
+    <string name="illustration_atribute">http://www.freepik.com">Designed by pikisuperstar / Freepik</string>
 </resources>
