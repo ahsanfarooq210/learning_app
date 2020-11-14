@@ -23,10 +23,10 @@ import com.google.firebase.auth.FirebaseAuth;
 public class Signup_activity extends AppCompatActivity
 {
 
-    private RelativeLayout relativeLayout,upperlayout;
+    private RelativeLayout relativeLayout, upperlayout;
     private ScrollView scrollView;
     private Handler handler;
-    private Runnable runnable=new Runnable()
+    private Runnable runnable = new Runnable()
     {
         @Override
         public void run()
@@ -36,19 +36,17 @@ public class Signup_activity extends AppCompatActivity
     };
     private ProgressBar progressBar;
     private Handler pHandler;
-    private Runnable progressRunnable=new Runnable()
+    private Runnable progressRunnable = new Runnable()
     {
         @Override
         public void run()
         {
-                progressBar.setVisibility(View.GONE);
+            progressBar.setVisibility(View.GONE);
         }
     };
 
-    private EditText username_et,password_et,cnfrm_pass_et;
+    private EditText username_et, password_et, cnfrm_pass_et;
     private FirebaseAuth mAuth;
-
-
 
 
     @Override
@@ -58,45 +56,45 @@ public class Signup_activity extends AppCompatActivity
         setContentView(R.layout.activity_signup_activity);
 
         //for the snack bar
-        upperlayout=findViewById(R.id.signup_upper_layout);
-        relativeLayout=findViewById(R.id.signup_rellay2);
-        scrollView=findViewById(R.id.signup_rellay1);
+        upperlayout = findViewById(R.id.signup_upper_layout);
+        relativeLayout = findViewById(R.id.signup_rellay2);
+        scrollView = findViewById(R.id.signup_rellay1);
 
         //progress bar
-        progressBar=findViewById(R.id.signup_progress_bar);
-        pHandler=new Handler();
-        pHandler.postDelayed(progressRunnable,0);
+        progressBar = findViewById(R.id.signup_progress_bar);
+        pHandler = new Handler();
+        pHandler.postDelayed(progressRunnable, 0);
 
 
         //timeout for the splash screen is 1.5 seconds
-        handler=new Handler();
-        handler.postDelayed(runnable,1500);
+        handler = new Handler();
+        handler.postDelayed(runnable, 1500);
 
         //initializing the edit texts
-        username_et=findViewById(R.id.signup_username);
-        password_et=findViewById(R.id.signup_password);
-        cnfrm_pass_et=findViewById(R.id.signup_cnfrm_password);
+        username_et = findViewById(R.id.signup_username);
+        password_et = findViewById(R.id.signup_password);
+        cnfrm_pass_et = findViewById(R.id.signup_cnfrm_password);
 
-        mAuth=FirebaseAuth.getInstance();
+        mAuth = FirebaseAuth.getInstance();
 
     }
 
     public void signup(View view)
     {
-        if(username_et.getText().toString().trim().length()==0||!(username_et.getText().toString().trim().contains("@")))
+        if (username_et.getText().toString().trim().length() == 0 || !(username_et.getText().toString().trim().contains("@")))
         {
             username_et.setError("please enter a valid Email");
             YoYo.with(Techniques.Tada).duration(700).repeat(1).playOn(username_et);
             return;
         }
 
-        if(password_et.getText().toString().trim().length()<6)
+        if (password_et.getText().toString().trim().length() < 6)
         {
             password_et.setError("enter valid password with minimum 6 characters");
             YoYo.with(Techniques.Tada).duration(700).repeat(1).playOn(password_et);
             return;
         }
-        if(!cnfrm_pass_et.getText().toString().trim().equals(password_et.getText().toString().trim()))
+        if (!cnfrm_pass_et.getText().toString().trim().equals(password_et.getText().toString().trim()))
         {
             cnfrm_pass_et.setError("passwords donot match");
             password_et.setError("passwords donot match");
@@ -105,11 +103,11 @@ public class Signup_activity extends AppCompatActivity
             return;
         }
         YoYo.with(Techniques.Tada).duration(700).repeat(1).playOn(view);
-        
-        String email=username_et.getText().toString().trim();
-        String password=password_et.getText().toString().trim();
 
-        signupProc(email,password);
+        String email = username_et.getText().toString().trim();
+        String password = password_et.getText().toString().trim();
+
+        signupProc(email, password);
 
     }
 
@@ -117,12 +115,15 @@ public class Signup_activity extends AppCompatActivity
     {
         progressBar.setVisibility(View.VISIBLE);
         mAuth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>()
+                {
                     @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
+                    public void onComplete(@NonNull Task<AuthResult> task)
+                    {
+                        if (task.isSuccessful())
+                        {
                             // Sign in success, update UI with the signed-in user's information
-                            pHandler.postDelayed(progressRunnable,200);
+                            pHandler.postDelayed(progressRunnable, 200);
                             Snackbar.make(upperlayout, "Signed up successfully please login to continue", Snackbar.LENGTH_INDEFINITE).setAction("Login", new View.OnClickListener()
                             {
                                 @Override
@@ -137,9 +138,10 @@ public class Signup_activity extends AppCompatActivity
                             password_et.setText("");
                             cnfrm_pass_et.setText("");
 
-                        } else {
+                        } else
+                        {
                             // If sign in fails, display a message to the user.
-                            pHandler.postDelayed(progressRunnable,200);
+                            pHandler.postDelayed(progressRunnable, 200);
                             Snackbar.make(upperlayout, "Sign up failed please Retry", Snackbar.LENGTH_SHORT).show();
                         }
 
