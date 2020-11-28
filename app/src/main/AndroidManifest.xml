@@ -12,7 +12,13 @@
         android:label="Codex"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".webViewes.Books_web_view_with_notes_activity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity android:name=".WebViewSupport.Show_history_activity" />
         <activity
             android:name=".webViewes.Show_saved_pages_web_view"
@@ -33,11 +39,7 @@
         <activity android:name=".UserAuthentication.Signup_activity" />
         <activity android:name=".UserAuthentication.Forgot_pass_activity" />
         <activity android:name=".UserAuthentication.MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
     </application>
 

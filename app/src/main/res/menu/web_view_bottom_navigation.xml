@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/web"
+        android:checked="true"
+        android:icon="@drawable/icons8_webmoney_100px"
+        android:title="Web" />
+
+    <item
+        android:id="@+id/not"
+        android:icon="@drawable/icons8_speaker_notes_100px"
+        android:title="Notes" />
+
+</menu>
