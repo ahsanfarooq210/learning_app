@@ -54,7 +54,7 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'com.daimajia.androidanimations:library:2.4@aar'
-    implementation  'com.fxn769:bubbletabbar:1.0.5'
+
 
 }
 repositories {

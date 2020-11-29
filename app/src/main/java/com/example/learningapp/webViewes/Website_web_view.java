@@ -302,18 +302,38 @@ public class Website_web_view extends AppCompatActivity
                 webView.reload();
                 break;
             case R.id.web_view_share:
-                Intent shareintent = new Intent(Intent.ACTION_SEND);
-                shareintent.setType("text/plain");
-                shareintent.putExtra(Intent.EXTRA_TEXT, myUrl);
-                shareintent.putExtra(Intent.EXTRA_SUBJECT, "Copied Url");
-                startActivity(Intent.createChooser(shareintent, "Share url with friends"));
+                share();
                 break;
-
             case R.id.web_view_save:
                 savePage();
                 break;
+            case R.id.web_view_menu_cancel:
+                exitWebView();
+                break;
+            case R.id.web_view_menu_go_notes:
+                openNotes();
+                break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void openNotes()
+    {
+        //TODO: Add the open notes acivity in website web view
+    }
+
+    private void share()
+    {
+        Intent shareintent = new Intent(Intent.ACTION_SEND);
+        shareintent.setType("text/plain");
+        shareintent.putExtra(Intent.EXTRA_TEXT, myUrl);
+        shareintent.putExtra(Intent.EXTRA_SUBJECT, "Copied Url");
+        startActivity(Intent.createChooser(shareintent, "Share url with friends"));
+    }
+
+    private void exitWebView()
+    {
+        finish();
     }
 
     private void savePage()

@@ -21,14 +21,25 @@
         app:showAsAction="always" />
 
     <item
-        app:showAsAction="never"
         android:id="@+id/web_view_share"
-        android:icon="@drawable/ic_baseline_share_24"
-        android:title="Share" />
+        android:icon="@drawable/icons8_share_100px_1"
+        android:title="Share"
+        app:showAsAction="never" />
 
     <item
         android:id="@+id/web_view_save"
         android:icon="@drawable/icons8_save_64px"
         android:title="Bookmark page"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/web_view_menu_go_notes"
+        android:icon="@drawable/icons8_create_document_100px_1"
+        android:title="Add Notes"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/web_view_menu_cancel"
+        android:icon="@drawable/icons8_cancel_80px"
+        android:title="Exit"
+        app:showAsAction="always" />
 </menu>

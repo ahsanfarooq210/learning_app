@@ -141,17 +141,31 @@ class Show_saved_pages_web_view : AppCompatActivity()
             R.id.wewb_view_menu_back -> onBackPressed()
             R.id.web_view_menu_forward -> onForwardPressed()
             R.id.web_view_menu_refresh -> webView!!.reload()
-            R.id.web_view_share ->
-            {
-                val shareintent = Intent(Intent.ACTION_SEND)
-                shareintent.type = "text/plain"
-                shareintent.putExtra(Intent.EXTRA_TEXT, myUrl)
-                shareintent.putExtra(Intent.EXTRA_SUBJECT, "Copied Url")
-                startActivity(Intent.createChooser(shareintent, "Share url with friends"))
-            }
+            R.id.web_view_share -> shareFun()
             R.id.web_view_save -> savePage()
+            R.id.web_view_menu_cancel -> finish()
+            R.id.web_view_menu_go_notes -> openNotes()
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun shareFun()
+    {
+        val shareintent = Intent(Intent.ACTION_SEND)
+        shareintent.type = "text/plain"
+        shareintent.putExtra(Intent.EXTRA_TEXT, myUrl)
+        shareintent.putExtra(Intent.EXTRA_SUBJECT, "Copied Url")
+        startActivity(Intent.createChooser(shareintent, "Share url with friends"))
+    }
+
+    private fun openNotes()
+    {
+        //TODO: Add the open notes acivity in show saved pages web view
+    }
+
+    private fun webViewExit()
+    {
+        finish();
     }
 
     private fun savePage()
