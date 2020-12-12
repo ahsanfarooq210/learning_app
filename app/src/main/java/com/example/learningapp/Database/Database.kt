@@ -7,12 +7,15 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.example.learningapp.Dao.HisotryDao
 import com.example.learningapp.Entity.HistoryEntity
+import com.example.learningapp.notes.Dao.NotesDao
+import com.example.learningapp.notes.entities.Note
 import java.security.AccessControlContext
 
-@Database(entities = [HistoryEntity::class], version = 1, exportSchema = false)
+@Database(entities = [HistoryEntity::class, Note::class], version = 1, exportSchema = false)
 abstract class Database : RoomDatabase()
 {
     abstract fun gethistoryDao(): HisotryDao
+    abstract fun getNotesDao(): NotesDao
 
 
     companion object
