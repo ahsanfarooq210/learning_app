@@ -12,7 +12,19 @@
         android:label="Codex"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".notes.Notes_main_class"></activity>
+        <activity
+            android:name=".notes.CreateNoteActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".notes.Notes_Main_Class"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity android:name=".WebViewSupport.Show_history_activity" />
         <activity
             android:name=".webViewes.Show_saved_pages_web_view"
@@ -32,7 +44,7 @@
         <activity android:name=".Dashboard.Main_dashboard" />
         <activity android:name=".UserAuthentication.Signup_activity" />
         <activity android:name=".UserAuthentication.Forgot_pass_activity" />
-        <activity android:name=".UserAuthentication.MainActivity"></activity>
+        <activity android:name=".UserAuthentication.MainActivity" />
     </application>
 
 </manifest>
