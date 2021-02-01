@@ -59,8 +59,6 @@ public class CreateNoteActivity extends AppCompatActivity
     private AlertDialog dialogAddUrl;
 
 
-    //fdkjakjdfhadlkhfdafadfsfda
-
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
