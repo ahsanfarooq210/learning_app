@@ -6,6 +6,7 @@ import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 @Entity(tableName = "notes")
 public class Note implements Serializable
@@ -135,4 +136,25 @@ public class Note implements Serializable
     //TODO:corete a is equal method
 
 
+    @Override
+    public boolean equals(Object o)
+    {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Note note = (Note) o;
+        return id == note.id &&
+                Objects.equals(title, note.title) &&
+                Objects.equals(dateTime, note.dateTime) &&
+                Objects.equals(subTitle, note.subTitle) &&
+                Objects.equals(noteText, note.noteText) &&
+                Objects.equals(imagePath, note.imagePath) &&
+                Objects.equals(color, note.color) &&
+                Objects.equals(webLink, note.webLink);
+    }
+
+    @Override
+    public int hashCode()
+    {
+        return Objects.hash(id, title, dateTime, subTitle, noteText, imagePath, color, webLink);
+    }
 }

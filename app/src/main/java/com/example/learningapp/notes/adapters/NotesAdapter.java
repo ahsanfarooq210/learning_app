@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.learningapp.R;
 import com.example.learningapp.notes.entities.Note;
+import com.example.learningapp.notes.listiners.NotesListener;
 import com.makeramen.roundedimageview.RoundedImageView;
 
 import java.util.List;
@@ -21,10 +22,12 @@ import java.util.List;
 public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NotesViewHolder>
 {
     private List<Note> notes;
+    private NotesListener notesListener;
 
-    public NotesAdapter(List<Note> notes)
+    public NotesAdapter(List<Note> notes, NotesListener notesListener)
     {
         this.notes = notes;
+        this.notesListener = notesListener;
     }
 
     @NonNull
@@ -35,9 +38,17 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NotesViewHol
     }
 
     @Override
-    public void onBindViewHolder(@NonNull NotesViewHolder holder, int position)
+    public void onBindViewHolder(@NonNull NotesViewHolder holder, final int position)
     {
         holder.setNote(notes.get(position));
+        holder.layoutNote.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                notesListener.onNoteClicked(notes.get(position), position);
+            }
+        });
     }
 
     @Override

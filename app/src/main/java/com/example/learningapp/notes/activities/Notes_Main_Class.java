@@ -18,18 +18,22 @@ import com.example.learningapp.Database.Database;
 import com.example.learningapp.R;
 import com.example.learningapp.notes.adapters.NotesAdapter;
 import com.example.learningapp.notes.entities.Note;
+import com.example.learningapp.notes.listiners.NotesListener;
 import com.google.api.Distribution;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Notes_Main_Class extends AppCompatActivity
+public class Notes_Main_Class extends AppCompatActivity implements NotesListener
 {
     public static final int REQUEST_CODE_ADD_NOTE = 1;
+    private static final int REQUEST_CODE_UPDATE_NOTE = 2;
 
     private RecyclerView notesRecyclerView;
     private List<Note> noteList;
     private NotesAdapter notesAdapter;
+
+    private int noteClickedPosition = -1;
 
 
     @Override
@@ -51,9 +55,20 @@ public class Notes_Main_Class extends AppCompatActivity
 
 
         noteList = new ArrayList<>();
-        notesAdapter = new NotesAdapter(noteList);
+        notesAdapter = new NotesAdapter(noteList, this);
         notesRecyclerView.setAdapter(notesAdapter);
         getNotes();
+    }
+
+    @Override
+    public void onNoteClicked(Note note, int position)
+    {
+        noteClickedPosition = position;
+        Intent intent = new Intent(getApplicationContext(), CreateNoteActivity.class);
+        intent.putExtra("isViewOrUpdate", true);
+        intent.putExtra("note", note);
+        startActivityForResult(intent, REQUEST_CODE_UPDATE_NOTE);
+
     }
 
     private void getNotes()
@@ -77,8 +92,12 @@ public class Notes_Main_Class extends AppCompatActivity
                     notesAdapter.notifyDataSetChanged();
                 } else
                 {
-                    noteList.add(0, notes.get(0));
-                    notesAdapter.notifyItemInserted(0);
+                    if (!notes.get(0).equals(noteList.get(0)))
+                    {
+                        noteList.add(0, notes.get(0));
+                        notesAdapter.notifyItemInserted(0);
+                    }
+
                 }
                 notesRecyclerView.smoothScrollToPosition(0);
 
