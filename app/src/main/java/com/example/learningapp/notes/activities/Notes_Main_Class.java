@@ -89,6 +89,7 @@ public class Notes_Main_Class extends AppCompatActivity implements NotesListener
                 super.onPostExecute(notes);
                 if (requestCode == REQUESR_CODE_SHOW_NOTE)
                 {
+                    noteList.clear();
                     noteList.addAll(notes);
                     notesAdapter.notifyDataSetChanged();
                 } else
