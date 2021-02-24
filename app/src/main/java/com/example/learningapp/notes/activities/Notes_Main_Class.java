@@ -58,7 +58,7 @@ public class Notes_Main_Class extends AppCompatActivity implements NotesListener
         noteList = new ArrayList<>();
         notesAdapter = new NotesAdapter(noteList, this);
         notesRecyclerView.setAdapter(notesAdapter);
-        getNotes(REQUESR_CODE_SHOW_NOTE);
+        getNotes(REQUESR_CODE_SHOW_NOTE, false);
     }
 
     @Override
@@ -72,7 +72,7 @@ public class Notes_Main_Class extends AppCompatActivity implements NotesListener
 
     }
 
-    private void getNotes(final int requestCode)
+    private void getNotes(final int requestCode, final boolean isNoteDeleted)
     {
         class GetNotes extends AsyncTask<Void, Void, List<Note>>
         {
@@ -104,8 +104,15 @@ public class Notes_Main_Class extends AppCompatActivity implements NotesListener
                         if (requestCode == REQUEST_CODE_UPDATE_NOTE)
                         {
                             noteList.remove(noteClickedPosition);
-                            noteList.add(noteClickedPosition, notes.get(noteClickedPosition));
-                            notesAdapter.notifyItemChanged(noteClickedPosition);
+
+                            if (isNoteDeleted)
+                            {
+                                notesAdapter.notifyItemRemoved(noteClickedPosition);
+                            } else
+                            {
+                                noteList.add(noteClickedPosition, notes.get(noteClickedPosition));
+                                notesAdapter.notifyItemChanged(noteClickedPosition);
+                            }
                         }
                     }
                 }
@@ -119,7 +126,7 @@ public class Notes_Main_Class extends AppCompatActivity implements NotesListener
     protected void onRestart()
     {
         super.onRestart();
-        getNotes(REQUESR_CODE_SHOW_NOTE);
+        getNotes(REQUESR_CODE_SHOW_NOTE, false);
     }
 
     @Override
@@ -128,12 +135,12 @@ public class Notes_Main_Class extends AppCompatActivity implements NotesListener
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_CODE_ADD_NOTE && resultCode == RESULT_OK)
         {
-            getNotes(REQUEST_CODE_ADD_NOTE);
+            getNotes(REQUEST_CODE_ADD_NOTE, false);
         } else
         {
             if (requestCode == REQUEST_CODE_UPDATE_NOTE && resultCode == RESULT_OK)
             {
-                getNotes(REQUEST_CODE_UPDATE_NOTE);
+                getNotes(REQUEST_CODE_UPDATE_NOTE, data.getBooleanExtra("isNoteDeleted", false));
             }
         }
     }
