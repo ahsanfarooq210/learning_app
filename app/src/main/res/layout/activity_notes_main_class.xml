@@ -82,7 +82,7 @@
         app:layout_constraintBottom_toBottomOf="parent">
 
         <ImageView
-            android:id="@+id/immageAddNote"
+            android:id="@+id/imageAddNote"
             android:layout_width="@dimen/_23sdp"
             android:layout_height="@dimen/_23sdp"
             android:src="@drawable/ic_add_outline"
@@ -97,7 +97,7 @@
             app:tint="@color/colorIcons" />
 
         <ImageView
-            android:id="@+id/immageAddwenLink"
+            android:id="@+id/imageAddWebLink"
             android:layout_width="@dimen/_23sdp"
             android:layout_height="@dimen/_23sdp"
             android:layout_marginStart="@dimen/_15sdp"
