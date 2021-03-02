@@ -19,6 +19,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.learningapp.Entity.SavedPages
 import com.example.learningapp.R
+import com.example.learningapp.notes.activities.Notes_Main_Class
 import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
@@ -160,7 +161,7 @@ class Show_saved_pages_web_view : AppCompatActivity()
 
     private fun openNotes()
     {
-        //TODO: Add the open notes acivity in show saved pages web view
+        startActivity(Intent(this, Notes_Main_Class::class.java))
     }
 
     private fun webViewExit()

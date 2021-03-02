@@ -25,6 +25,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.learningapp.Entity.SavedPages;
 import com.example.learningapp.R;
+import com.example.learningapp.notes.activities.Notes_Main_Class;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
@@ -196,7 +197,8 @@ public class Books_web_view extends AppCompatActivity
 
     private void openNotes()
     {
-        //TODO: Add the open notes acivity in books web view
+
+        startActivity(new Intent(getBaseContext(), Notes_Main_Class.class));
     }
 
     private void share()

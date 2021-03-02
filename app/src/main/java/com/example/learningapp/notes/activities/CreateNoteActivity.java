@@ -3,6 +3,7 @@ package com.example.learningapp.notes.activities;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
@@ -32,10 +33,14 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.daimajia.androidanimations.library.Techniques;
+import com.daimajia.androidanimations.library.YoYo;
 import com.example.learningapp.Database.Database;
 import com.example.learningapp.R;
 import com.example.learningapp.notes.entities.Note;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
+import com.google.android.material.snackbar.BaseTransientBottomBar;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
@@ -62,6 +67,8 @@ public class CreateNoteActivity extends AppCompatActivity
 
     private Note alreadyAvalableNote;
 
+    private CoordinatorLayout upperlayout;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -87,6 +94,9 @@ public class CreateNoteActivity extends AppCompatActivity
         imageNote = findViewById(R.id.imageNote);
         textDateTime = findViewById(R.id.textDateTime);
         textDateTime.setText(new SimpleDateFormat("EEEE,dd MMMM yyyy HH:mm a", Locale.getDefault()).format(new Date()));
+
+        //upper layout for the snack bar
+        upperlayout = findViewById(R.id.create_note_upper_layout);
 
         ImageView imageSave = findViewById(R.id.imageSave);
         imageSave.setOnClickListener(new View.OnClickListener()
@@ -184,23 +194,27 @@ public class CreateNoteActivity extends AppCompatActivity
     {
         if (inputNoteTitle.getText().toString().trim().isEmpty())
         {
-            //TODO:make a snak bar here
-            //TODO:make a yoyo animation
-            Toast.makeText(this, "please write the title", Toast.LENGTH_SHORT).show();
+
+            Snackbar.make(upperlayout, "Title cannot be empty", Snackbar.LENGTH_SHORT).show();
+
+            YoYo.with(Techniques.Tada).duration(500).repeat(1).playOn(inputNoteTitle);
             return;
         }
         if (inputNoteSubTitle.getText().toString().trim().isEmpty())
         {
-            //TODO:make a snak bar here
-            //TODO:make a yoyo animation
-            Toast.makeText(this, "please write the subtitle", Toast.LENGTH_SHORT).show();
+
+            Snackbar.make(upperlayout, "Sub title cannot be empty", Snackbar.LENGTH_SHORT).show();
+
+            YoYo.with(Techniques.Tada).duration(500).repeat(1).playOn(inputNoteSubTitle);
             return;
         }
         if (inputNoteText.getText().toString().trim().isEmpty())
         {
-            //TODO:make a snak bar here
-            //TODO:make a yoyo animation
-            Toast.makeText(this, "please write the title", Toast.LENGTH_SHORT).show();
+
+            Snackbar.make(upperlayout, "note cannot be empty", Snackbar.LENGTH_SHORT).show();
+
+            YoYo.with(Techniques.Tada).duration(500).repeat(1).playOn(inputNoteText);
+
             return;
         }
 
@@ -495,8 +509,8 @@ public class CreateNoteActivity extends AppCompatActivity
                 selectImage();
             } else
             {
-                //TODO:make a snack bar here
-                Toast.makeText(this, "Permission denied", Toast.LENGTH_SHORT).show();
+
+                Snackbar.make(upperlayout, "Permission failed", Snackbar.LENGTH_SHORT).show();
             }
         }
     }
@@ -526,8 +540,7 @@ public class CreateNoteActivity extends AppCompatActivity
 
                     } catch (Exception exception)
                     {
-                        //TODO:make a snack bar here
-                        Toast.makeText(this, "Error in selecting image", Toast.LENGTH_SHORT).show();
+                        Snackbar.make(upperlayout, "Error in selecting the image", Snackbar.LENGTH_SHORT).show();
                     }
                 }
             }
@@ -577,14 +590,12 @@ public class CreateNoteActivity extends AppCompatActivity
                 {
                     if (inputUrl.getText().toString().trim().isEmpty())
                     {
-                        //TODO:make a snack bar here
-                        Toast.makeText(CreateNoteActivity.this, "Ad a url", Toast.LENGTH_SHORT).show();
+                        Snackbar.make(upperlayout, "Add a URL", Snackbar.LENGTH_SHORT).show();
                     } else
                     {
                         if (!Patterns.WEB_URL.matcher(inputUrl.getText().toString().trim()).matches())
                         {
-                            //TODO: make a snack bar here
-                            Toast.makeText(CreateNoteActivity.this, "Enter a valid URL", Toast.LENGTH_SHORT).show();
+                            Snackbar.make(upperlayout, "Enter a valid URL", Snackbar.LENGTH_SHORT).show();
                         } else
                         {
                             textWebUrl.setText(inputUrl.getText().toString().trim());

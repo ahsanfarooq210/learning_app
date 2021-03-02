@@ -133,8 +133,6 @@ public class Note implements Serializable
         return title + ":" + dateTime;
     }
 
-    //TODO:corete a is equal method
-
 
     @Override
     public boolean equals(Object o)

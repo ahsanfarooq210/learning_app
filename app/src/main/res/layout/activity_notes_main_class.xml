@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
+    android:id="@+id/Notes_main_class_upper_layout"
     tools:context=".notes.activities.Notes_Main_Class">
 
     <TextView

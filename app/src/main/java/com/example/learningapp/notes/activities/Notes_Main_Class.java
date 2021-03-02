@@ -26,6 +26,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -37,6 +39,7 @@ import com.example.learningapp.R;
 import com.example.learningapp.notes.adapters.NotesAdapter;
 import com.example.learningapp.notes.entities.Note;
 import com.example.learningapp.notes.listiners.NotesListener;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.api.Distribution;
 
 import java.util.ArrayList;
@@ -58,6 +61,8 @@ public class Notes_Main_Class extends AppCompatActivity implements NotesListener
 
     private AlertDialog dialogAddUrl;
 
+    private ConstraintLayout upperLayout;
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState)
@@ -76,6 +81,7 @@ public class Notes_Main_Class extends AppCompatActivity implements NotesListener
         notesRecyclerView = findViewById(R.id.notesRecyclerView);
         notesRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
 
+        upperLayout = findViewById(R.id.Notes_main_class_upper_layout);
 
         noteList = new ArrayList<>();
         notesAdapter = new NotesAdapter(noteList, this);
@@ -153,8 +159,7 @@ public class Notes_Main_Class extends AppCompatActivity implements NotesListener
                 selectImage();
             } else
             {
-                //TODO:make a snack bar here
-                Toast.makeText(this, "Permission denied", Toast.LENGTH_SHORT).show();
+                Snackbar.make(upperLayout, "permission denied", Snackbar.LENGTH_SHORT).show();
             }
         }
     }
@@ -285,7 +290,7 @@ public class Notes_Main_Class extends AppCompatActivity implements NotesListener
                                 startActivityForResult(intent, REQUEST_CODE_ADD_NOTE);
                             } catch (Exception exception)
                             {
-                                //TODO: snack bar here with exception.getMessage();
+                                Snackbar.make(upperLayout, exception.getMessage(), Snackbar.LENGTH_SHORT).show();
                             }
                         }
                     }
@@ -320,14 +325,13 @@ public class Notes_Main_Class extends AppCompatActivity implements NotesListener
                 {
                     if (inputUrl.getText().toString().trim().isEmpty())
                     {
-                        //TODO:make a snack bar here
-                        Toast.makeText(Notes_Main_Class.this, "Ad a url", Toast.LENGTH_SHORT).show();
+
+                        Snackbar.make(upperLayout, "Add a URL", Snackbar.LENGTH_SHORT).show();
                     } else
                     {
                         if (!Patterns.WEB_URL.matcher(inputUrl.getText().toString().trim()).matches())
                         {
-                            //TODO: make a snack bar here
-                            Toast.makeText(Notes_Main_Class.this, "Enter a valid URL", Toast.LENGTH_SHORT).show();
+                            Snackbar.make(upperLayout, "Enter a valid URL", Snackbar.LENGTH_SHORT).show();
                         } else
                         {
                             dialogAddUrl.dismiss();

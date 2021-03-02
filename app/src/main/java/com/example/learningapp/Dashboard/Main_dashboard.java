@@ -29,6 +29,7 @@ import com.example.learningapp.UserAuthentication.MainActivity;
 import com.example.learningapp.WebViewSupport.Show_history_activity;
 import com.example.learningapp.WebViewSupport.Show_saved_pages;
 import com.example.learningapp.learningMedium.select_language_fragment;
+import com.example.learningapp.notes.activities.Notes_Main_Class;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -168,23 +169,7 @@ public class Main_dashboard extends AppCompatActivity implements NavigationView.
                 break;
 
             case R.id.nav_drawer_profile_logout:
-                FirebaseAuth.getInstance().signOut();
-                GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                        .requestIdToken(getString(R.string.default_web_client_id))
-                        .requestEmail()
-                        .build();
-
-                GoogleSignInClient mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
-                try
-                {
-                    mGoogleSignInClient.revokeAccess();
-                } catch (Exception ignored)
-                {
-
-                }
-                History h = new History();
-                h.getAllHisotry(Main_dashboard.this);
-                startActivity(new Intent(Main_dashboard.this, MainActivity.class));
+                signout();
                 finish();
                 break;
 
@@ -192,8 +177,30 @@ public class Main_dashboard extends AppCompatActivity implements NavigationView.
                 startActivity(new Intent(this, Show_history_activity.class));
                 break;
 
+            case R.id.nav_drawer_open_notes:
+                startActivity(new Intent(Main_dashboard.this, Notes_Main_Class.class));
+                break;
+
+
         }
         return true;
+    }
+
+    private void signout()
+    {
+        FirebaseAuth.getInstance().signOut();
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestIdToken(getString(R.string.default_web_client_id)).requestEmail().build();
+        GoogleSignInClient mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+        try
+        {
+            mGoogleSignInClient.revokeAccess();
+        } catch (Exception ignored)
+        {
+            //TODO:make a snack bar here
+        }
+        History h = new History();
+        h.getAllHisotry(Main_dashboard.this);
+        startActivity(new Intent(Main_dashboard.this, MainActivity.class));
     }
 
     @Override
