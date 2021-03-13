@@ -28,7 +28,7 @@ public class Show_saved_pages extends AppCompatActivity
 {
 
     private FirebaseFirestore firestore;
-    private CollectionReference collectionReference;
+
     private FirebaseUser user;
     private ArrayList<SavedPages> list;
     private LinearLayout upperlayout;
@@ -41,7 +41,8 @@ public class Show_saved_pages extends AppCompatActivity
         setContentView(R.layout.activity_show_saved_pages);
 
         firestore = FirebaseFirestore.getInstance();
-        collectionReference = firestore.collection(getString(R.string.firestore_collection_saved_pages));
+
+
         user = FirebaseAuth.getInstance().getCurrentUser();
         list = new ArrayList<>();
 
@@ -55,7 +56,7 @@ public class Show_saved_pages extends AppCompatActivity
     {
         super.onStart();
 
-        CollectionReference reference = firestore.collection(getString(R.string.firestore_collection_saved_pages)).document(user.getUid()).collection("saved");
+        CollectionReference reference = firestore.collection(user.getUid()).document(getString(R.string.firestore_collection_saved_pages)).collection("saved");
         reference.addSnapshotListener(new EventListener<QuerySnapshot>()
         {
             @Override

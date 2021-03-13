@@ -199,7 +199,7 @@ public class Edit_profile extends AppCompatActivity
             uuid = "Unknown";
         }
 
-        DocumentReference documentReference = firestore.collection(getString(R.string.firestore_user_reference)).document(uuid);
+        DocumentReference documentReference = firestore.collection(uuid).document(getString(R.string.firestore_user_reference));
 
         Map<String, Object> user = new HashMap<>();
         user.put(getString(R.string.user_reference_fname), usernameStr);

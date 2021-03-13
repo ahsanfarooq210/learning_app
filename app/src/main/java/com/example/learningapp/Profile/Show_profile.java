@@ -82,7 +82,7 @@ public class Show_profile extends AppCompatActivity
         super.onStart();
 
         String uuid = user.getUid();
-        DocumentReference documentReference = firestore.collection(getString(R.string.firestore_user_reference)).document(uuid);
+        DocumentReference documentReference = firestore.collection(uuid).document(getString(R.string.firestore_user_reference));
         documentReference.addSnapshotListener(this, new EventListener<DocumentSnapshot>()
         {
             @Override

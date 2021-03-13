@@ -64,8 +64,9 @@ class Show_saved_pages_web_view : AppCompatActivity()
 
 
         firestore = FirebaseFirestore.getInstance()
-        collectionReference = firestore!!.collection(getString(R.string.firestore_collection_saved_pages))
         user = FirebaseAuth.getInstance().currentUser
+        collectionReference = firestore!!.collection(user!!.uid)
+
         progressBar = findViewById(R.id.show_saved_progress_bar)
         websiteLogo = findViewById(R.id.show_saved_logo)
         webView = findViewById(R.id.show_saved_web_view)
@@ -171,8 +172,10 @@ class Show_saved_pages_web_view : AppCompatActivity()
 
     private fun savePage()
     {
-        val savedPages = SavedPages(myTitle, myUrl)
-        collectionReference!!.document(user!!.uid).collection(getString(R.string.saved_pages_collection_path)).add(savedPages).addOnSuccessListener { Snackbar.make(upperLayout!!, "Page saved successfully", BaseTransientBottomBar.LENGTH_SHORT).show() }.addOnFailureListener { Snackbar.make(upperLayout!!, "Failed. Try again", BaseTransientBottomBar.LENGTH_SHORT).show() }
+//        val savedPages = SavedPages(myTitle, myUrl)
+//        collectionReference!!.document(getString(R.string.firestore_collection_saved_pages)).collection(getString(R.string.saved_pages_collection_path)).add(savedPages).addOnSuccessListener { Snackbar.make(upperLayout!!, "Page saved successfully", BaseTransientBottomBar.LENGTH_SHORT).show() }.addOnFailureListener { Snackbar.make(upperLayout!!, "Failed. Try again", BaseTransientBottomBar.LENGTH_SHORT).show() }
+
+        Snackbar.make(upperLayout!!, "page already saved", BaseTransientBottomBar.LENGTH_SHORT).show()
     }
 
     private fun onForwardPressed()

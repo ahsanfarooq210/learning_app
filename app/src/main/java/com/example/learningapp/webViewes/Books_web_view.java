@@ -24,6 +24,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.learningapp.Entity.SavedPages;
+import com.example.learningapp.HelperClasses.WebCommonFunctions;
 import com.example.learningapp.R;
 import com.example.learningapp.notes.activities.Notes_Main_Class;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -219,7 +220,17 @@ public class Books_web_view extends AppCompatActivity
     {
 
         SavedPages savedPages = new SavedPages(myTitle, myUrl);
-        collectionReference.document(user.getUid()).collection(getString(R.string.saved_pages_collection_path)).add(savedPages).addOnSuccessListener(new OnSuccessListener<DocumentReference>()
+//        boolean flag=WebCommonFunctions.savePages(savedPages,Books_web_view.this);
+//        if(flag)
+//        {
+//            Snackbar.make(upperLayout, "Page saved successfully", BaseTransientBottomBar.LENGTH_SHORT).show();
+//        }
+//        else
+//        {
+//            Snackbar.make(upperLayout, "Failed. Try again", BaseTransientBottomBar.LENGTH_SHORT).show();
+//        }
+
+        collectionReference.document(getString(R.string.firestore_collection_saved_pages)).collection("saved").add(savedPages).addOnSuccessListener(new OnSuccessListener<DocumentReference>()
         {
             @Override
             public void onSuccess(DocumentReference documentReference)

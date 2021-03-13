@@ -71,4 +71,6 @@ class history_rv_adapter : RecyclerView.Adapter<history_rv_adapter.ViewHolder>
         }
 
     }
+
+
 }

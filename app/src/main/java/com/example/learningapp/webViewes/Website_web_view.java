@@ -25,6 +25,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.learningapp.Entity.HistoryEntity;
 import com.example.learningapp.Entity.SavedPages;
 import com.example.learningapp.HelperClasses.History;
+import com.example.learningapp.HelperClasses.WebCommonFunctions;
 import com.example.learningapp.R;
 import com.example.learningapp.notes.activities.Notes_Main_Class;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -75,7 +76,7 @@ public class Website_web_view extends AppCompatActivity
             String language = bundle.getString(getString(R.string.bundle_language_reference));
             String website = bundle.getString(getString(R.string.bundle_website_name_reference));
             assert language != null;
-            link = decideLink(language, website);
+            link = WebCommonFunctions.decideLink(language, website, Website_web_view.this);
         } else
         {
 
@@ -84,8 +85,9 @@ public class Website_web_view extends AppCompatActivity
         }
 
         firestore = FirebaseFirestore.getInstance();
-        collectionReference = firestore.collection(getString(R.string.firestore_collection_saved_pages));
         user = FirebaseAuth.getInstance().getCurrentUser();
+        collectionReference = firestore.collection(user.getUid());
+
 
         progressBar = findViewById(R.id.website_progress_bar);
         websiteLogo = findViewById(R.id.website_logo);
@@ -165,117 +167,7 @@ public class Website_web_view extends AppCompatActivity
         });
     }
 
-    private String decideLink(String language, String website)
-    {
-        String link;
 
-        switch (language)
-        {
-            case "c++":
-                switch (website)
-                {
-                    case "tutorials point":
-                        link = getString(R.string.tutorial_point_cpp);
-                        break;
-                    case "w3 Schools":
-                        link = getString(R.string.w3_schools_cpp);
-                        break;
-                    case "geeks for geeks":
-                        link = getString(R.string.geeks_for_geeks_cpp);
-                        break;
-
-                    default:
-                        link = "http://www.google.com/";
-                        break;
-
-                }
-                break;
-
-            case "java":
-                switch (website)
-                {
-                    case "tutorials point":
-                        link = getString(R.string.tutorial_point_java);
-                        break;
-                    case "w3 Schools":
-                        link = getString(R.string.w3_schools_java);
-                        break;
-                    case "geeks for geeks":
-                        link = getString(R.string.geeks_for_geeks_java);
-                        break;
-
-                    default:
-                        link = "http://www.google.com/";
-                        break;
-                }
-                break;
-
-            case "python":
-                switch (website)
-                {
-                    case "tutorials point":
-                        link = getString(R.string.tutorial_point_python);
-                        break;
-                    case "w3 Schools":
-                        link = getString(R.string.w3_schools_python);
-                        break;
-
-                    case "geeks for geeks":
-                        link = getString(R.string.geeks_for_geeks_python);
-                        break;
-                    default:
-                        link = "http://www.google.com/";
-                        break;
-                }
-                break;
-
-            case "java script":
-                switch (website)
-                {
-                    case "tutorials point":
-                        link = getString(R.string.tutorial_point_java_script);
-                        break;
-                    case "w3 Schools":
-                        link = getString(R.string.w3_schools_java_script);
-                        break;
-
-                    case "geeks for geeks":
-                        link = getString(R.string.geeks_for_geeks_javascript);
-                        break;
-
-                    default:
-                        link = "http://www.google.com/";
-                        break;
-                }
-                break;
-
-            case "c#":
-                switch (website)
-                {
-                    case "tutorials point":
-                        link = getString(R.string.tutorial_point_csharp);
-                        break;
-                    case "w3 Schools":
-                        link = getString(R.string.w3_schools_csharp);
-                        break;
-
-                    case "geeks for geeks":
-                        link = getString(R.string.geeks_for_geeks_csharp);
-                        break;
-                    default:
-                        link = "http://www.google.com/";
-                        break;
-                }
-                break;
-
-            default:
-                link = "http://www.google.com/";
-                break;
-
-        }
-
-        return link;
-    }
 
 
     @Override
@@ -341,7 +233,17 @@ public class Website_web_view extends AppCompatActivity
     {
 
         SavedPages savedPages = new SavedPages(myTitle, myUrl);
-        collectionReference.document(user.getUid()).collection("saved").add(savedPages).addOnSuccessListener(new OnSuccessListener<DocumentReference>()
+
+//        boolean flag=WebCommonFunctions.savePages(savedPages,Website_web_view.this);
+//        if(flag)
+//        {
+//            Snackbar.make(upperLayout, "Page saved successfully", BaseTransientBottomBar.LENGTH_SHORT).show();
+//        }
+//        else
+//        {
+//            Snackbar.make(upperLayout, "Failed. Try again", BaseTransientBottomBar.LENGTH_SHORT).show();
+//        }
+        collectionReference.document(getString(R.string.firestore_collection_saved_pages)).collection("saved").add(savedPages).addOnSuccessListener(new OnSuccessListener<DocumentReference>()
         {
             @Override
             public void onSuccess(DocumentReference documentReference)

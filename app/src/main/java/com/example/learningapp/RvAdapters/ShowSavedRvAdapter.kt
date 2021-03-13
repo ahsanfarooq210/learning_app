@@ -75,8 +75,8 @@ class ShowSavedRvAdapter : RecyclerView.Adapter<ShowSavedRvAdapter.ViewHolder>
                             val savedPages = list[adapterPosition]
                             val user = FirebaseAuth.getInstance().currentUser
                             val firestore = FirebaseFirestore.getInstance()
-                            val documentReference = firestore.collection(context.getString(R.string.firestore_collection_saved_pages))
-                                    .document(user!!.uid).collection(context.getString(R.string.saved_pages_collection_path)).document(savedPages.id)
+                            val documentReference = firestore.collection(user!!.uid)
+                                    .document(context.getString(R.string.firestore_collection_saved_pages)).collection(context.getString(R.string.saved_pages_collection_path)).document(savedPages.id)
                             documentReference.delete().addOnSuccessListener {
                                 Snackbar.make(upperLayout!!, "Deleted successfully", BaseTransientBottomBar.LENGTH_SHORT).show()
                                 context.startActivity(Intent(context, Show_saved_pages::class.java))

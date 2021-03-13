@@ -22,6 +22,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.learningapp.Entity.SavedPages;
+import com.example.learningapp.HelperClasses.WebCommonFunctions;
 import com.example.learningapp.R;
 import com.example.learningapp.notes.activities.Notes_Main_Class;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -224,6 +225,15 @@ public class Youtube_web_view extends AppCompatActivity
     {
 
         SavedPages savedPages = new SavedPages(myTitle, myUrl);
+//        boolean flag= WebCommonFunctions.savePages(savedPages,Youtube_web_view.this);
+//        if(flag)
+//        {
+//            Snackbar.make(upperLayout, "Page saved successfully", BaseTransientBottomBar.LENGTH_SHORT).show();
+//        }
+//        else
+//        {
+//            Snackbar.make(upperLayout, "Failed. Try again", BaseTransientBottomBar.LENGTH_SHORT).show();
+//        }
         collectionReference.document(user.getUid()).collection("saved").add(savedPages).addOnSuccessListener(new OnSuccessListener<DocumentReference>()
         {
             @Override
