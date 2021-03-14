@@ -86,4 +86,6 @@
     <string name="forget_password">Forget Password.?</string>
 
     <string name="illustration_atribute">http://www.freepik.com">Designed by pikisuperstar / Freepik</string>
+    <string name="saved_notes_document_reference">saved_notes</string>
+    <string name="notes_collection">notes</string>
 </resources>

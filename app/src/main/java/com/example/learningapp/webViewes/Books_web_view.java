@@ -71,9 +71,8 @@ public class Books_web_view extends AppCompatActivity
         }
 
         firestore = FirebaseFirestore.getInstance();
-        collectionReference = firestore.collection(getString(R.string.firestore_collection_saved_pages));
-
         user = FirebaseAuth.getInstance().getCurrentUser();
+        collectionReference = firestore.collection(user.getUid());
 
         progressBar = findViewById(R.id.books_progress_bar);
         websiteLogo = findViewById(R.id.books_logo);

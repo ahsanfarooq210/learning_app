@@ -88,8 +88,8 @@ public class Youtube_web_view extends AppCompatActivity
         }
 
         firestore = FirebaseFirestore.getInstance();
-        collectionReference = firestore.collection(getString(R.string.firestore_collection_saved_pages));
         user = FirebaseAuth.getInstance().getCurrentUser();
+        collectionReference = firestore.collection(user.getUid());
 
         progressBar = findViewById(R.id.youtube_website_progress_bar);
         websiteLogo = findViewById(R.id.youtube_website_logo);

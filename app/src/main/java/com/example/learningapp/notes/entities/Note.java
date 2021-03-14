@@ -12,21 +12,21 @@ import java.util.Objects;
 public class Note implements Serializable
 {
 
-    @PrimaryKey(autoGenerate = true)
-    private int id;
-    @ColumnInfo(name = "title")
+    //   @PrimaryKey(autoGenerate = true)
+    private String id;
+    //    @ColumnInfo(name = "title")
     private String title;
-    @ColumnInfo(name = "date_time")
+    //    @ColumnInfo(name = "date_time")
     private String dateTime;
-    @ColumnInfo(name = "subtitle")
+    //    @ColumnInfo(name = "subtitle")
     private String subTitle;
-    @ColumnInfo(name = "note_text")
+    //    @ColumnInfo(name = "note_text")
     private String noteText;
-    @ColumnInfo(name = "image_path")
+    //    @ColumnInfo(name = "image_path")
     private String imagePath;
-    @ColumnInfo(name = "color")
+    //   @ColumnInfo(name = "color")
     private String color;
-    @ColumnInfo(name = "web_link")
+    //    @ColumnInfo(name = "web_link")
     private String webLink;
 
     public Note()
@@ -34,7 +34,7 @@ public class Note implements Serializable
     }
 
 
-    public Note(int id, String title, String dateTime, String subTitle, String noteText, String imagePath, String color, String webLink)
+    public Note(String id, String title, String dateTime, String subTitle, String noteText, String imagePath, String color, String webLink)
     {
         this.id = id;
         this.title = title;
@@ -46,12 +46,12 @@ public class Note implements Serializable
         this.webLink = webLink;
     }
 
-    public int getId()
+    public String getId()
     {
         return id;
     }
 
-    public void setId(int id)
+    public void setId(String id)
     {
         this.id = id;
     }

@@ -39,8 +39,17 @@ import com.example.learningapp.R;
 import com.example.learningapp.notes.adapters.NotesAdapter;
 import com.example.learningapp.notes.entities.Note;
 import com.example.learningapp.notes.listiners.NotesListener;
+import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.api.Distribution;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -62,6 +71,10 @@ public class Notes_Main_Class extends AppCompatActivity implements NotesListener
     private AlertDialog dialogAddUrl;
 
     private ConstraintLayout upperLayout;
+
+    private FirebaseFirestore firestore;
+    private CollectionReference reference;
+    private FirebaseUser user;
 
 
     @Override
@@ -86,7 +99,13 @@ public class Notes_Main_Class extends AppCompatActivity implements NotesListener
         noteList = new ArrayList<>();
         notesAdapter = new NotesAdapter(noteList, this);
         notesRecyclerView.setAdapter(notesAdapter);
-        getNotes(REQUESR_CODE_SHOW_NOTE, false);
+        //getNotes(REQUESR_CODE_SHOW_NOTE, false);
+
+
+        firestore = FirebaseFirestore.getInstance();
+        user = FirebaseAuth.getInstance().getCurrentUser();
+        assert user != null;
+        reference = firestore.collection(user.getUid());
 
         EditText inputSearch = findViewById(R.id.inputSearch);
         inputSearch.addTextChangedListener(new TextWatcher()
@@ -202,6 +221,7 @@ public class Notes_Main_Class extends AppCompatActivity implements NotesListener
 
     }
 
+
     private void getNotes(final int requestCode, final boolean isNoteDeleted)
     {
         class GetNotes extends AsyncTask<Void, Void, List<Note>>
@@ -256,7 +276,8 @@ public class Notes_Main_Class extends AppCompatActivity implements NotesListener
     protected void onRestart()
     {
         super.onRestart();
-        getNotes(REQUESR_CODE_SHOW_NOTE, false);
+        //getNotes(REQUESR_CODE_SHOW_NOTE, false);
+        getNotesOnline();
     }
 
     @Override
@@ -265,12 +286,12 @@ public class Notes_Main_Class extends AppCompatActivity implements NotesListener
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_CODE_ADD_NOTE && resultCode == RESULT_OK)
         {
-            getNotes(REQUEST_CODE_ADD_NOTE, false);
+            //getNotes(REQUEST_CODE_ADD_NOTE, false);
         } else
         {
             if (requestCode == REQUEST_CODE_UPDATE_NOTE && resultCode == RESULT_OK)
             {
-                getNotes(REQUEST_CODE_UPDATE_NOTE, data.getBooleanExtra("isNoteDeleted", false));
+                // getNotes(REQUEST_CODE_UPDATE_NOTE, data.getBooleanExtra("isNoteDeleted", false));
             } else
             {
                 if (requestCode == REQUESR_CODE_SELECT_IMAGE && resultCode == RESULT_OK)
@@ -357,6 +378,52 @@ public class Notes_Main_Class extends AppCompatActivity implements NotesListener
         }
 
         dialogAddUrl.show();
+
+    }
+
+    @Override
+    protected void onStart()
+    {
+        super.onStart();
+        getNotesOnline();
+
+    }
+
+    private void getNotesOnline()
+    {
+        Runnable runnable = new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                reference.document(getString(R.string.saved_notes_document_reference)).collection(getString(R.string.notes_collection)).addSnapshotListener(new EventListener<QuerySnapshot>()
+                {
+                    @Override
+                    public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error)
+                    {
+                        if (error != null)
+                        {
+                            Snackbar.make(upperLayout, "Error in downloading the data", BaseTransientBottomBar.LENGTH_SHORT).show();
+                            return;
+                        }
+
+                        noteList.clear();
+                        assert value != null;
+                        for (QueryDocumentSnapshot snapshot : value)
+                        {
+                            Note note = snapshot.toObject(Note.class);
+                            note.setId(snapshot.getId());
+                            noteList.add(note);
+                        }
+
+                        notesAdapter.notifyDataSetChanged();
+
+
+                    }
+                });
+            }
+        };
+        runnable.run();
 
     }
 }

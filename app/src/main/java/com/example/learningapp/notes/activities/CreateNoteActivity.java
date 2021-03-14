@@ -38,9 +38,17 @@ import com.daimajia.androidanimations.library.YoYo;
 import com.example.learningapp.Database.Database;
 import com.example.learningapp.R;
 import com.example.learningapp.notes.entities.Note;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.SetOptions;
 
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
@@ -58,16 +66,17 @@ public class CreateNoteActivity extends AppCompatActivity
     private static final int REQUEST_CODE_SELECT_IMAGW = 2;
     private ImageView imageNote;
     private String selectedImagePath;
-
+    private FirebaseFirestore firestore;
+    private FirebaseUser user;
     private String selectedNoteColor;
     private TextView textWebUrl;
     private LinearLayout layoutWebUrl;
     private AlertDialog dialogAddUrl;
     private AlertDialog dialogDeleteNote;
-
+    private CollectionReference collectionReference;
     private Note alreadyAvalableNote;
 
-    private CoordinatorLayout upperlayout;
+    private CoordinatorLayout upperLayout;
 
 
     @Override
@@ -96,7 +105,7 @@ public class CreateNoteActivity extends AppCompatActivity
         textDateTime.setText(new SimpleDateFormat("EEEE,dd MMMM yyyy HH:mm a", Locale.getDefault()).format(new Date()));
 
         //upper layout for the snack bar
-        upperlayout = findViewById(R.id.create_note_upper_layout);
+        upperLayout = findViewById(R.id.create_note_upper_layout);
 
         ImageView imageSave = findViewById(R.id.imageSave);
         imageSave.setOnClickListener(new View.OnClickListener()
@@ -104,7 +113,7 @@ public class CreateNoteActivity extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
-                saveNote();
+                saveNoteOnline();
             }
         });
         textWebUrl = findViewById(R.id.textWebUrl);
@@ -166,6 +175,10 @@ public class CreateNoteActivity extends AppCompatActivity
         initMiscellaneous();
         setViewSubtitleIndicateColor();
 
+        firestore = FirebaseFirestore.getInstance();
+        user = FirebaseAuth.getInstance().getCurrentUser();
+        collectionReference = firestore.collection(user.getUid());
+
 
     }
 
@@ -190,12 +203,12 @@ public class CreateNoteActivity extends AppCompatActivity
         }
     }
 
-    private void saveNote()
+    private void saveNoteOnline()
     {
         if (inputNoteTitle.getText().toString().trim().isEmpty())
         {
 
-            Snackbar.make(upperlayout, "Title cannot be empty", Snackbar.LENGTH_SHORT).show();
+            Snackbar.make(upperLayout, "Title cannot be empty", Snackbar.LENGTH_SHORT).show();
 
             YoYo.with(Techniques.Tada).duration(500).repeat(1).playOn(inputNoteTitle);
             return;
@@ -203,7 +216,7 @@ public class CreateNoteActivity extends AppCompatActivity
         if (inputNoteSubTitle.getText().toString().trim().isEmpty())
         {
 
-            Snackbar.make(upperlayout, "Sub title cannot be empty", Snackbar.LENGTH_SHORT).show();
+            Snackbar.make(upperLayout, "Sub title cannot be empty", Snackbar.LENGTH_SHORT).show();
 
             YoYo.with(Techniques.Tada).duration(500).repeat(1).playOn(inputNoteSubTitle);
             return;
@@ -211,7 +224,87 @@ public class CreateNoteActivity extends AppCompatActivity
         if (inputNoteText.getText().toString().trim().isEmpty())
         {
 
-            Snackbar.make(upperlayout, "note cannot be empty", Snackbar.LENGTH_SHORT).show();
+            Snackbar.make(upperLayout, "note cannot be empty", Snackbar.LENGTH_SHORT).show();
+
+            YoYo.with(Techniques.Tada).duration(500).repeat(1).playOn(inputNoteText);
+
+            return;
+        }
+
+        final Note note = new Note();
+        note.setTitle(inputNoteTitle.getText().toString().trim());
+        note.setSubTitle(inputNoteSubTitle.getText().toString().trim());
+        note.setNoteText(inputNoteText.getText().toString().trim());
+        note.setDateTime(textDateTime.getText().toString().trim());
+        note.setColor(selectedNoteColor);
+        note.setImagePath(selectedImagePath);
+        if (layoutWebUrl.getVisibility() == View.VISIBLE)
+        {
+            note.setWebLink(textWebUrl.getText().toString());
+        }
+
+        if (alreadyAvalableNote != null)
+        {
+
+            //note.setId(alreadyAvalableNote.getId());
+
+            collectionReference.document(getString(R.string.saved_notes_document_reference)).collection(getString(R.string.notes_collection)).document(alreadyAvalableNote.getId()).set(note, SetOptions.merge()).addOnSuccessListener(new OnSuccessListener<Void>()
+            {
+                @Override
+                public void onSuccess(Void aVoid)
+                {
+                    Snackbar.make(upperLayout, "Page saved successfully", BaseTransientBottomBar.LENGTH_SHORT).show();
+                }
+            }).addOnFailureListener(new OnFailureListener()
+            {
+                @Override
+                public void onFailure(@NonNull Exception e)
+                {
+                    Snackbar.make(upperLayout, "Failed. Try again", BaseTransientBottomBar.LENGTH_SHORT).show();
+                }
+            });
+            return;
+        }
+
+        collectionReference.document(getString(R.string.saved_notes_document_reference)).collection(getString(R.string.notes_collection)).add(note).addOnSuccessListener(new OnSuccessListener<DocumentReference>()
+        {
+            @Override
+            public void onSuccess(DocumentReference documentReference)
+            {
+                Snackbar.make(upperLayout, "Page saved successfully", BaseTransientBottomBar.LENGTH_SHORT).show();
+            }
+        }).addOnFailureListener(new OnFailureListener()
+        {
+            @Override
+            public void onFailure(@NonNull Exception e)
+            {
+                Snackbar.make(upperLayout, "Failed. Try again", BaseTransientBottomBar.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void saveNote()
+    {
+        if (inputNoteTitle.getText().toString().trim().isEmpty())
+        {
+
+            Snackbar.make(upperLayout, "Title cannot be empty", Snackbar.LENGTH_SHORT).show();
+
+            YoYo.with(Techniques.Tada).duration(500).repeat(1).playOn(inputNoteTitle);
+            return;
+        }
+        if (inputNoteSubTitle.getText().toString().trim().isEmpty())
+        {
+
+            Snackbar.make(upperLayout, "Sub title cannot be empty", Snackbar.LENGTH_SHORT).show();
+
+            YoYo.with(Techniques.Tada).duration(500).repeat(1).playOn(inputNoteSubTitle);
+            return;
+        }
+        if (inputNoteText.getText().toString().trim().isEmpty())
+        {
+
+            Snackbar.make(upperLayout, "note cannot be empty", Snackbar.LENGTH_SHORT).show();
 
             YoYo.with(Techniques.Tada).duration(500).repeat(1).playOn(inputNoteText);
 
@@ -510,7 +603,7 @@ public class CreateNoteActivity extends AppCompatActivity
             } else
             {
 
-                Snackbar.make(upperlayout, "Permission failed", Snackbar.LENGTH_SHORT).show();
+                Snackbar.make(upperLayout, "Permission failed", Snackbar.LENGTH_SHORT).show();
             }
         }
     }
@@ -540,7 +633,7 @@ public class CreateNoteActivity extends AppCompatActivity
 
                     } catch (Exception exception)
                     {
-                        Snackbar.make(upperlayout, "Error in selecting the image", Snackbar.LENGTH_SHORT).show();
+                        Snackbar.make(upperLayout, "Error in selecting the image", Snackbar.LENGTH_SHORT).show();
                     }
                 }
             }
@@ -590,12 +683,12 @@ public class CreateNoteActivity extends AppCompatActivity
                 {
                     if (inputUrl.getText().toString().trim().isEmpty())
                     {
-                        Snackbar.make(upperlayout, "Add a URL", Snackbar.LENGTH_SHORT).show();
+                        Snackbar.make(upperLayout, "Add a URL", Snackbar.LENGTH_SHORT).show();
                     } else
                     {
                         if (!Patterns.WEB_URL.matcher(inputUrl.getText().toString().trim()).matches())
                         {
-                            Snackbar.make(upperlayout, "Enter a valid URL", Snackbar.LENGTH_SHORT).show();
+                            Snackbar.make(upperLayout, "Enter a valid URL", Snackbar.LENGTH_SHORT).show();
                         } else
                         {
                             textWebUrl.setText(inputUrl.getText().toString().trim());
