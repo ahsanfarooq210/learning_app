@@ -272,6 +272,7 @@ public class CreateNoteActivity extends AppCompatActivity
             public void onSuccess(DocumentReference documentReference)
             {
                 Snackbar.make(upperLayout, "Page saved successfully", BaseTransientBottomBar.LENGTH_SHORT).show();
+
             }
         }).addOnFailureListener(new OnFailureListener()
         {
@@ -283,74 +284,74 @@ public class CreateNoteActivity extends AppCompatActivity
         });
     }
 
-    private void saveNote()
-    {
-        if (inputNoteTitle.getText().toString().trim().isEmpty())
-        {
-
-            Snackbar.make(upperLayout, "Title cannot be empty", Snackbar.LENGTH_SHORT).show();
-
-            YoYo.with(Techniques.Tada).duration(500).repeat(1).playOn(inputNoteTitle);
-            return;
-        }
-        if (inputNoteSubTitle.getText().toString().trim().isEmpty())
-        {
-
-            Snackbar.make(upperLayout, "Sub title cannot be empty", Snackbar.LENGTH_SHORT).show();
-
-            YoYo.with(Techniques.Tada).duration(500).repeat(1).playOn(inputNoteSubTitle);
-            return;
-        }
-        if (inputNoteText.getText().toString().trim().isEmpty())
-        {
-
-            Snackbar.make(upperLayout, "note cannot be empty", Snackbar.LENGTH_SHORT).show();
-
-            YoYo.with(Techniques.Tada).duration(500).repeat(1).playOn(inputNoteText);
-
-            return;
-        }
-
-        final Note note = new Note();
-        note.setTitle(inputNoteTitle.getText().toString().trim());
-        note.setSubTitle(inputNoteSubTitle.getText().toString().trim());
-        note.setNoteText(inputNoteText.getText().toString().trim());
-        note.setDateTime(textDateTime.getText().toString().trim());
-        note.setColor(selectedNoteColor);
-        note.setImagePath(selectedImagePath);
-        if (layoutWebUrl.getVisibility() == View.VISIBLE)
-        {
-            note.setWebLink(textWebUrl.getText().toString());
-        }
-
-        if (alreadyAvalableNote != null)
-        {
-            note.setId(alreadyAvalableNote.getId());
-        }
-
-        class SaveNoteTask extends AsyncTask<Void, Void, Void>
-        {
-
-            @Override
-            protected Void doInBackground(Void... voids)
-            {
-                Database.Companion.getDatabase(getApplicationContext()).getNotesDao().insertNote(note);
-                return null;
-
-            }
-
-            @Override
-            protected void onPostExecute(Void aVoid)
-            {
-                super.onPostExecute(aVoid);
-                Intent intent = new Intent();
-                setResult(RESULT_OK, intent);
-                finish();
-            }
-        }
-
-        new SaveNoteTask().execute();
-    }
+//    private void saveNote()
+//    {
+//        if (inputNoteTitle.getText().toString().trim().isEmpty())
+//        {
+//
+//            Snackbar.make(upperLayout, "Title cannot be empty", Snackbar.LENGTH_SHORT).show();
+//
+//            YoYo.with(Techniques.Tada).duration(500).repeat(1).playOn(inputNoteTitle);
+//            return;
+//        }
+//        if (inputNoteSubTitle.getText().toString().trim().isEmpty())
+//        {
+//
+//            Snackbar.make(upperLayout, "Sub title cannot be empty", Snackbar.LENGTH_SHORT).show();
+//
+//            YoYo.with(Techniques.Tada).duration(500).repeat(1).playOn(inputNoteSubTitle);
+//            return;
+//        }
+//        if (inputNoteText.getText().toString().trim().isEmpty())
+//        {
+//
+//            Snackbar.make(upperLayout, "note cannot be empty", Snackbar.LENGTH_SHORT).show();
+//
+//            YoYo.with(Techniques.Tada).duration(500).repeat(1).playOn(inputNoteText);
+//
+//            return;
+//        }
+//
+//        final Note note = new Note();
+//        note.setTitle(inputNoteTitle.getText().toString().trim());
+//        note.setSubTitle(inputNoteSubTitle.getText().toString().trim());
+//        note.setNoteText(inputNoteText.getText().toString().trim());
+//        note.setDateTime(textDateTime.getText().toString().trim());
+//        note.setColor(selectedNoteColor);
+//        note.setImagePath(selectedImagePath);
+//        if (layoutWebUrl.getVisibility() == View.VISIBLE)
+//        {
+//            note.setWebLink(textWebUrl.getText().toString());
+//        }
+//
+//        if (alreadyAvalableNote != null)
+//        {
+//            note.setId(alreadyAvalableNote.getId());
+//        }
+//
+//        class SaveNoteTask extends AsyncTask<Void, Void, Void>
+//        {
+//
+//            @Override
+//            protected Void doInBackground(Void... voids)
+//            {
+//                Database.Companion.getDatabase(getApplicationContext()).getNotesDao().insertNote(note);
+//                return null;
+//
+//            }
+//
+//            @Override
+//            protected void onPostExecute(Void aVoid)
+//            {
+//                super.onPostExecute(aVoid);
+//                Intent intent = new Intent();
+//                setResult(RESULT_OK, intent);
+//                finish();
+//            }
+//        }
+//
+//        new SaveNoteTask().execute();
+//    }
 
     @Override
     protected void onPause()

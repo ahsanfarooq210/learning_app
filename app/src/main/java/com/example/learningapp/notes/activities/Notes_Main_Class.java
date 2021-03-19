@@ -58,7 +58,6 @@ public class Notes_Main_Class extends AppCompatActivity implements NotesListener
 {
     public static final int REQUEST_CODE_ADD_NOTE = 1;
     private static final int REQUEST_CODE_UPDATE_NOTE = 2;
-    private static final int REQUESR_CODE_SHOW_NOTE = 3;
     private static final int REQUESR_CODE_SELECT_IMAGE = 4;
     private static final int REQUEST_STORAGE_PERMISSIONS = 5;
 
@@ -73,7 +72,9 @@ public class Notes_Main_Class extends AppCompatActivity implements NotesListener
     private ConstraintLayout upperLayout;
 
     private FirebaseFirestore firestore;
+
     private CollectionReference reference;
+
     private FirebaseUser user;
 
 
@@ -222,55 +223,55 @@ public class Notes_Main_Class extends AppCompatActivity implements NotesListener
     }
 
 
-    private void getNotes(final int requestCode, final boolean isNoteDeleted)
-    {
-        class GetNotes extends AsyncTask<Void, Void, List<Note>>
-        {
-
-            @Override
-            protected List<Note> doInBackground(Void... voids)
-            {
-                return Database.Companion.getDatabase(getApplicationContext()).getNotesDao().getAllNotes();
-            }
-
-            @Override
-            protected void onPostExecute(List<Note> notes)
-            {
-                super.onPostExecute(notes);
-                if (requestCode == REQUESR_CODE_SHOW_NOTE)
-                {
-                    noteList.clear();
-                    noteList.addAll(notes);
-                    notesAdapter.notifyDataSetChanged();
-                } else
-                {
-                    if (requestCode == REQUEST_CODE_ADD_NOTE)
-                    {
-                        noteList.add(0, notes.get(0));
-                        notesAdapter.notifyItemInserted(0);
-                        notesRecyclerView.smoothScrollToPosition(0);
-                    } else
-                    {
-                        if (requestCode == REQUEST_CODE_UPDATE_NOTE)
-                        {
-                            noteList.remove(noteClickedPosition);
-
-                            if (isNoteDeleted)
-                            {
-                                notesAdapter.notifyItemRemoved(noteClickedPosition);
-                            } else
-                            {
-                                noteList.add(noteClickedPosition, notes.get(noteClickedPosition));
-                                notesAdapter.notifyItemChanged(noteClickedPosition);
-                            }
-                        }
-                    }
-                }
-
-            }
-        }
-        new GetNotes().execute();
-    }
+//    private void getNotes(final int requestCode, final boolean isNoteDeleted)
+//    {
+//        class GetNotes extends AsyncTask<Void, Void, List<Note>>
+//        {
+//
+//            @Override
+//            protected List<Note> doInBackground(Void... voids)
+//            {
+//                return Database.Companion.getDatabase(getApplicationContext()).getNotesDao().getAllNotes();
+//            }
+//
+//            @Override
+//            protected void onPostExecute(List<Note> notes)
+//            {
+//                super.onPostExecute(notes);
+//                if (requestCode == REQUESR_CODE_SHOW_NOTE)
+//                {
+//                    noteList.clear();
+//                    noteList.addAll(notes);
+//                    notesAdapter.notifyDataSetChanged();
+//                } else
+//                {
+//                    if (requestCode == REQUEST_CODE_ADD_NOTE)
+//                    {
+//                        noteList.add(0, notes.get(0));
+//                        notesAdapter.notifyItemInserted(0);
+//                        notesRecyclerView.smoothScrollToPosition(0);
+//                    } else
+//                    {
+//                        if (requestCode == REQUEST_CODE_UPDATE_NOTE)
+//                        {
+//                            noteList.remove(noteClickedPosition);
+//
+//                            if (isNoteDeleted)
+//                            {
+//                                notesAdapter.notifyItemRemoved(noteClickedPosition);
+//                            } else
+//                            {
+//                                noteList.add(noteClickedPosition, notes.get(noteClickedPosition));
+//                                notesAdapter.notifyItemChanged(noteClickedPosition);
+//                            }
+//                        }
+//                    }
+//                }
+//
+//            }
+//        }
+//        new GetNotes().execute();
+//    }
 
     @Override
     protected void onRestart()
