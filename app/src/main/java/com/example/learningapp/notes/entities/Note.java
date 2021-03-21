@@ -1,14 +1,12 @@
 package com.example.learningapp.notes.entities;
 
 import androidx.annotation.NonNull;
-import androidx.room.ColumnInfo;
-import androidx.room.Entity;
-import androidx.room.PrimaryKey;
+
 
 import java.io.Serializable;
 import java.util.Objects;
 
-@Entity(tableName = "notes")
+//@Entity(tableName = "notes")
 public class Note implements Serializable
 {
 
@@ -31,6 +29,7 @@ public class Note implements Serializable
 
     public Note()
     {
+        this.id = null;
     }
 
 

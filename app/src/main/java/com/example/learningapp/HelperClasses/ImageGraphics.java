@@ -1,9 +1,14 @@
 package com.example.learningapp.HelperClasses;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Matrix;
+import android.net.Uri;
+import android.provider.MediaStore;
 
-public class ImageScaleDown
+import java.io.ByteArrayOutputStream;
+
+public class ImageGraphics
 {
     public static Bitmap getResizedBitmap(Bitmap bm, int newWidth, int newHeight)
     {
@@ -21,5 +26,13 @@ public class ImageScaleDown
                 bm, 0, 0, width, height, matrix, false);
         bm.recycle();
         return resizedBitmap;
+    }
+
+    public static Uri getImageUri(Context inContext, Bitmap inImage)
+    {
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+        String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "Title", null);
+        return Uri.parse(path);
     }
 }

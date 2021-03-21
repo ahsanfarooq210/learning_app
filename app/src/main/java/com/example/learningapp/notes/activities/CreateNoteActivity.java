@@ -21,6 +21,7 @@ import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.MediaStore;
 import android.util.Patterns;
 import android.view.LayoutInflater;
@@ -36,6 +37,7 @@ import android.widget.Toast;
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 import com.example.learningapp.Database.Database;
+import com.example.learningapp.HelperClasses.ImageGraphics;
 import com.example.learningapp.R;
 import com.example.learningapp.notes.entities.Note;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -49,7 +51,13 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.SetOptions;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -266,14 +274,98 @@ public class CreateNoteActivity extends AppCompatActivity
             return;
         }
 
+
         collectionReference.document(getString(R.string.saved_notes_document_reference)).collection(getString(R.string.notes_collection)).add(note).addOnSuccessListener(new OnSuccessListener<DocumentReference>()
         {
             @Override
             public void onSuccess(DocumentReference documentReference)
             {
                 Snackbar.make(upperLayout, "Page saved successfully", BaseTransientBottomBar.LENGTH_SHORT).show();
+                final String noteId = documentReference.getId();
 
+                if (!note.getImagePath().isEmpty())
+                {
+
+//                    StorageReference reference=FirebaseStorage.getInstance().getReference();
+//                    final StorageReference fileref = reference.child("notes/" + user.getUid() + noteId);
+//                    Uri imageUri=Uri.fromFile(new File(note.getImagePath()));
+//                    fileref.putFile(imageUri);
+
+
+                    Runnable savePicRunnable = new Runnable()
+                    {
+                        @Override
+                        public void run()
+                        {
+                            StorageReference childRef2 = FirebaseStorage.getInstance().getReference().child("notes/" + user.getUid() + noteId);
+                            childRef2.child("notepic.jpg");
+                            Bitmap bmp = null;
+                            try
+                            {
+                                bmp = MediaStore.Images.Media.getBitmap(getContentResolver(), Uri.fromFile(new File(note.getImagePath())));
+                            } catch (IOException e)
+                            {
+                                e.printStackTrace();
+                            }
+                            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                            bmp.compress(Bitmap.CompressFormat.JPEG, 25, baos);
+                            byte[] data = baos.toByteArray();
+                            //uploading the image
+                            UploadTask uploadTask2 = childRef2.putBytes(data);
+                            uploadTask2.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>()
+                            {
+                                @Override
+                                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot)
+                                {
+                                    Toast.makeText(CreateNoteActivity.this, "Upload successful", Toast.LENGTH_LONG).show();
+                                }
+                            }).addOnFailureListener(new OnFailureListener()
+                            {
+                                @Override
+                                public void onFailure(@NonNull Exception e)
+                                {
+                                    Toast.makeText(CreateNoteActivity.this, "Upload Failed -> " + e, Toast.LENGTH_LONG).show();
+                                }
+                            });
+                        }
+                    };
+
+                    savePicRunnable.run();
+
+
+                } else
+                {
+                    Toast.makeText(CreateNoteActivity.this, "note image empty", Toast.LENGTH_LONG).show();
+                }
+
+
+                Runnable saveNoteId = new Runnable()
+                {
+                    @Override
+                    public void run()
+                    {
+                        note.setId(noteId);
+                        collectionReference.document(getString(R.string.saved_notes_document_reference)).collection(getString(R.string.notes_collection)).document(noteId).set(note, SetOptions.merge()).addOnSuccessListener(new OnSuccessListener<Void>()
+                        {
+                            @Override
+                            public void onSuccess(Void aVoid)
+                            {
+                                Snackbar.make(upperLayout, "note id set successfully", BaseTransientBottomBar.LENGTH_SHORT).show();
+                            }
+                        }).addOnFailureListener(new OnFailureListener()
+                        {
+                            @Override
+                            public void onFailure(@NonNull Exception e)
+                            {
+                                Snackbar.make(upperLayout, "failed to set Note id", BaseTransientBottomBar.LENGTH_SHORT).show();
+                            }
+                        });
+                    }
+                };
+
+                saveNoteId.run();
             }
+
         }).addOnFailureListener(new OnFailureListener()
         {
             @Override
@@ -283,6 +375,7 @@ public class CreateNoteActivity extends AppCompatActivity
             }
         });
     }
+
 
 //    private void saveNote()
 //    {
@@ -352,6 +445,7 @@ public class CreateNoteActivity extends AppCompatActivity
 //
 //        new SaveNoteTask().execute();
 //    }
+
 
     @Override
     protected void onPause()
