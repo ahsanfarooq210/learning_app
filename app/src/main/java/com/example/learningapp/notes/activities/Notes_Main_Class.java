@@ -424,6 +424,7 @@ public class Notes_Main_Class extends AppCompatActivity implements NotesListener
                 });
             }
         };
+
         runnable.run();
 
     }

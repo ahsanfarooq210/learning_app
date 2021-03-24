@@ -1,12 +1,5 @@
 package com.example.learningapp.notes.activities;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.coordinatorlayout.widget.CoordinatorLayout;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-
 import android.Manifest;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -21,7 +14,6 @@ import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Handler;
 import android.provider.MediaStore;
 import android.util.Patterns;
 import android.view.LayoutInflater;
@@ -30,14 +22,19 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 import com.example.learningapp.Database.Database;
-import com.example.learningapp.HelperClasses.ImageGraphics;
 import com.example.learningapp.R;
 import com.example.learningapp.notes.entities.Note;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -67,11 +64,11 @@ public class CreateNoteActivity extends AppCompatActivity
 {
 
 
+    private static final int REQUEST_STORAGE_PERMISSIONS = 1;
+    private static final int REQUEST_CODE_SELECT_IMAGW = 2;
     private EditText inputNoteTitle, inputNoteSubTitle, inputNoteText;
     private TextView textDateTime;
     private View viewSubtitleIndicator;
-    private static final int REQUEST_STORAGE_PERMISSIONS = 1;
-    private static final int REQUEST_CODE_SELECT_IMAGW = 2;
     private ImageView imageNote;
     private String selectedImagePath;
     private FirebaseFirestore firestore;
